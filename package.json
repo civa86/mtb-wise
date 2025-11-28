@@ -1,9 +1,9 @@
 {
-  "name": "elec-app",
-  "version": "1.0.0",
-  "description": "An Electron application with Vue and TypeScript",
+  "name": "mtb-wise",
+  "version": "0.0.0",
+  "description": "Application to monitor your mountain bike usage",
   "main": "./out/main/index.js",
-  "author": "example.com",
+  "author": "Dario Civallero",
   "license": "MIT",
   "private": true,
   "scripts": {

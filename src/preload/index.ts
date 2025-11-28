@@ -1,8 +1,22 @@
-import { contextBridge } from 'electron'
+import { contextBridge, ipcRenderer } from 'electron'
 import { electronAPI } from '@electron-toolkit/preload'
+import { ApplicationSetting } from '../types'
 
-// Custom APIs for renderer
-const api = {}
+export interface Api {
+  loadSettings: () => Promise<ApplicationSetting>
+}
+const api: Api = {
+  loadSettings: async () => {
+    const result = await ipcRenderer.invoke('app:load-settings')
+    if (result) return result
+    return {
+      stravaClientId: '',
+      stravaClientSecret: '',
+      maintenanceHours: 120,
+      lastMaintenance: ''
+    }
+  }
+}
 
 // Use `contextBridge` APIs to expose Electron APIs to
 // renderer only if context isolation is enabled, otherwise

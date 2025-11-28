@@ -5,7 +5,8 @@ import PrimeVue from 'primevue/config'
 import { definePreset } from '@primeuix/themes'
 import Aura from '@primeuix/themes/aura'
 
-// import router from './router'
+import { useAppStore } from './stores/app'
+import router from './router'
 import App from './App.vue'
 
 const Noir = definePreset(Aura, {
@@ -44,15 +45,19 @@ const Noir = definePreset(Aura, {
 
 const pinia = createPinia()
 
-const app = createApp(App)
-app.use(pinia)
-// app.use(router)
-app.use(PrimeVue, {
-  theme: {
-    preset: Noir,
-    options: {
-      darkModeSelector: false
-    }
-  }
-})
-app.mount('#app')
+useAppStore(pinia)
+  .boot()
+  .then(() => {
+    const app = createApp(App)
+    app.use(pinia)
+    app.use(router)
+    app.use(PrimeVue, {
+      theme: {
+        preset: Noir,
+        options: {
+          darkModeSelector: false
+        }
+      }
+    })
+    app.mount('#app')
+  })

@@ -1,8 +1,9 @@
-import { app, shell, BrowserWindow, ipcMain } from 'electron'
+import { app, shell, BrowserWindow, ipcMain, IpcMainInvokeEvent } from 'electron'
 import { join } from 'path'
 import { electronApp, optimizer, is } from '@electron-toolkit/utils'
 import icon from '../../resources/icon.png?asset'
 import httpServer from './services/httpServer'
+import { existsSync, readFileSync } from 'fs'
 
 const createWindow = (): void => {
   // Create the browser window.
@@ -54,9 +55,6 @@ app.whenReady().then(() => {
     optimizer.watchWindowShortcuts(window)
   })
 
-  // IPC test
-  ipcMain.on('ping', () => console.log('pong'))
-
   createWindow()
 
   app.on('activate', function () {
@@ -65,7 +63,11 @@ app.whenReady().then(() => {
     if (BrowserWindow.getAllWindows().length === 0) createWindow()
   })
 
-  httpServer.start()
+  try {
+    httpServer.start()
+  } catch (e) {
+    app.quit()
+  }
 })
 
 // Quit when all windows are closed, except on macOS. There, it's common
@@ -81,5 +83,13 @@ app.on('quit', () => {
   httpServer.stop()
 })
 
-// In this file you can include the rest of your app's specific main process
-// code. You can also put them in separate files and require them here.
+ipcMain.handle('app:load-settings', (): string | null => {
+  try {
+    const userDataPath = app.getPath('userData')
+    const userData = join(userDataPath, 'app_settings.json')
+    if (existsSync(userData)) return JSON.parse(readFileSync(userData, 'utf-8'))
+    else return null
+  } catch (e) {
+    return null
+  }
+})
