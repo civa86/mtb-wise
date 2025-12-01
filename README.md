@@ -26,3 +26,7 @@ $ yarn build:mac
 # For Linux
 $ yarn build:linux
 ```
+
+## Strava
+
+https://developers.strava.com/docs/getting-started/

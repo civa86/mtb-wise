@@ -1,13 +1,16 @@
-import { app, shell, BrowserWindow, ipcMain, IpcMainInvokeEvent } from 'electron'
+import { app, shell, BrowserWindow, ipcMain } from 'electron'
 import { join } from 'path'
+import { existsSync, readFileSync } from 'fs'
 import { electronApp, optimizer, is } from '@electron-toolkit/utils'
 import icon from '../../resources/icon.png?asset'
 import httpServer from './services/httpServer'
-import { existsSync, readFileSync } from 'fs'
+
+let mainWindow: BrowserWindow | null = null
+let authWindow: BrowserWindow | null = null
 
 const createWindow = (): void => {
   // Create the browser window.
-  const mainWindow = new BrowserWindow({
+  mainWindow = new BrowserWindow({
     width: 900,
     height: 670,
     show: false,
@@ -21,7 +24,7 @@ const createWindow = (): void => {
   })
 
   mainWindow.on('ready-to-show', () => {
-    mainWindow.show()
+    if (mainWindow) mainWindow.show()
   })
 
   mainWindow.webContents.setWindowOpenHandler(details => {
@@ -64,7 +67,19 @@ app.whenReady().then(() => {
   })
 
   try {
-    httpServer.start()
+    httpServer.start((url: string) => {
+      const query = url.split('?')[1]
+      if (query) {
+        const parsedQuery = Object.fromEntries(new URLSearchParams(query).entries())
+        if (parsedQuery.code) {
+          if (authWindow) authWindow.close()
+          if (mainWindow) {
+            mainWindow.webContents.send('set-authorization-code', parsedQuery.code)
+            mainWindow.focus()
+          }
+        }
+      }
+    })
   } catch (e) {
     app.quit()
   }
@@ -92,4 +107,15 @@ ipcMain.handle('app:load-settings', (): string | null => {
   } catch (e) {
     return null
   }
+})
+
+ipcMain.on('app:authorize', (_event, value) => {
+  authWindow = new BrowserWindow({
+    width: 350,
+    height: 700,
+    show: true,
+    autoHideMenuBar: true
+  })
+  authWindow.webContents.userAgent = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:70.0) Gecko/20100101 Firefox/70.0'
+  authWindow.loadURL(value)
 })

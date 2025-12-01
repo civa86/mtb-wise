@@ -4,12 +4,13 @@ let httpServer: Server | null = null
 
 const PORT = 9000
 
-const start = (port?: number) => {
+const start = (cb: (url: string) => void, port?: number) => {
   const p = port || PORT
   httpServer = http
-    .createServer((_req, res) => {
+    .createServer((req, res) => {
       res.writeHead(200, { 'Content-Type': 'text/plain' })
-      res.end('Hello World!')
+      res.end('OK')
+      cb(req.url as string)
     })
     .listen(p, () => {
       console.log(`[HTTP SERVER] running on http://localhost:${p}`)
