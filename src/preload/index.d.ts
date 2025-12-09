@@ -1,5 +1,5 @@
 import { ElectronAPI } from '@electron-toolkit/preload'
-import { Api } from '.'
+import { Api } from './api'
 
 declare global {
   interface Window {
@@ -7,5 +7,3 @@ declare global {
     api: Api
   }
 }
-
-declare const api: typeof import('.').api

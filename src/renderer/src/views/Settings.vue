@@ -1,6 +1,6 @@
 <template>
-  <div class="w-full h-full flex justify-center items-center">
-    <Card class="w-1/2">
+  <div class="flex justify-center">
+    <Card class="w-full">
       <template #title>
         <div class="flex items-center gap-2 border-b pb-2">
           <i class="pi pi-cog" style="font-size: 1.5rem"></i>
@@ -66,6 +66,8 @@
 </template>
 
 <script lang="ts" setup>
+import { useRouter } from 'vue-router'
+
 import { Form } from '@primevue/forms'
 import Card from 'primevue/card'
 import InputText from 'primevue/inputtext'
@@ -76,6 +78,7 @@ import Button from 'primevue/button'
 import { useAppStore } from '../stores/app'
 import { ApplicationSetting } from '../../../types'
 
+const router = useRouter()
 const appStore = useAppStore()
 
 const resolver = ({ values }) => {
@@ -99,17 +102,18 @@ const initialValues = {
   maintenanceHours: appStore.settings?.maintenanceHours
 }
 
-const onFormSubmit = ({ states, errors }) => {
+const onFormSubmit = async ({ states, errors }) => {
   if (Object.keys(errors).length === 0) {
-    const payload: ApplicationSetting = {
+    const payload: Partial<ApplicationSetting> = {
       stravaClientId: states.stravaClientId.value,
       stravaClientSecret: states.stravaClientSecret.value,
       maintenanceHours: states.maintenanceHours.value,
       lastMaintenance: states.lastMaintenance.value === null ? null : states.lastMaintenance.value.getTime()
     }
-    console.log(payload)
-  } else {
-    console.log('errors')
+    await appStore.saveSettings(payload)
+    await appStore.readSettings()
+
+    router.push({ name: 'main' })
   }
 }
 </script>

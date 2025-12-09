@@ -4,16 +4,18 @@ let httpServer: Server | null = null
 
 const PORT = 9000
 
+let serverPort
+
 const start = (cb: (url: string) => void, port?: number) => {
-  const p = port || PORT
+  serverPort = port || PORT
   httpServer = http
     .createServer((req, res) => {
       res.writeHead(200, { 'Content-Type': 'text/plain' })
       res.end('OK')
       cb(req.url as string)
     })
-    .listen(p, () => {
-      console.log(`[HTTP SERVER] running on http://localhost:${p}`)
+    .listen(serverPort, () => {
+      console.log(`[HTTP SERVER] running on http://localhost:${serverPort}`)
     })
 }
 
@@ -24,7 +26,10 @@ const stop = () => {
   }
 }
 
+const getURL = () => `http://localhost:${serverPort}`
+
 export default {
   start,
-  stop
+  stop,
+  getURL
 }

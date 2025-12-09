@@ -1,18 +1,32 @@
-import { app, shell, BrowserWindow, ipcMain } from 'electron'
+import { app, shell, BrowserWindow, ipcMain, IpcMainEvent, IpcMainInvokeEvent } from 'electron'
 import { join } from 'path'
-import { existsSync, readFileSync } from 'fs'
+import { existsSync, readFileSync, writeFileSync } from 'fs'
 import { electronApp, optimizer, is } from '@electron-toolkit/utils'
 import icon from '../../resources/icon.png?asset'
 import httpServer from './services/httpServer'
+import { ApplicationSetting, AuthData } from '../types'
 
 let mainWindow: BrowserWindow | null = null
 let authWindow: BrowserWindow | null = null
 
+const AUTH_DATA = 'auth_data.json'
+const APP_SETTINGS = 'app_settings.json'
+
+const getUserDataPath = (name: string) => join(app.getPath('userData'), name)
+
+const readUserData = <T>(name: string) => {
+  const userDataPath = getUserDataPath(name)
+  let data = {} as T
+  if (existsSync(userDataPath)) data = JSON.parse(readFileSync(userDataPath, 'utf-8'))
+  return data
+}
+
 const createWindow = (): void => {
   // Create the browser window.
   mainWindow = new BrowserWindow({
-    width: 900,
-    height: 670,
+    width: 500,
+    minWidth: 500,
+    height: 650,
     show: false,
     autoHideMenuBar: true,
     ...(process.platform === 'linux' ? { icon } : {}),
@@ -98,15 +112,49 @@ app.on('quit', () => {
   httpServer.stop()
 })
 
-ipcMain.handle('app:load-settings', (): string | null => {
+ipcMain.handle('app:read-settings', (): ApplicationSetting | null => {
   try {
-    const userDataPath = app.getPath('userData')
-    const userData = join(userDataPath, 'app_settings.json')
-    if (existsSync(userData)) return JSON.parse(readFileSync(userData, 'utf-8'))
-    else return null
+    const data = readUserData<ApplicationSetting>(APP_SETTINGS)
+    return {
+      ...data,
+      stravaRedirectURI: httpServer.getURL()
+    }
   } catch (e) {
     return null
   }
+})
+
+ipcMain.handle('app:write-settings', (_event: IpcMainInvokeEvent, settings: ApplicationSetting): boolean => {
+  try {
+    const userDataPath = getUserDataPath(APP_SETTINGS)
+    writeFileSync(userDataPath, JSON.stringify(settings))
+    return true
+  } catch (e) {
+    return false
+  }
+})
+
+ipcMain.handle('auth:read-data', (): AuthData | null => {
+  try {
+    const data = readUserData<AuthData>(AUTH_DATA)
+    return data
+  } catch (e) {
+    return null
+  }
+})
+
+ipcMain.handle('auth:write-data', (_event: IpcMainInvokeEvent, settings: AuthData): boolean => {
+  try {
+    const userDataPath = getUserDataPath(AUTH_DATA)
+    writeFileSync(userDataPath, JSON.stringify(settings))
+    return true
+  } catch (e) {
+    return false
+  }
+})
+
+ipcMain.on('app:reload', (_event: IpcMainEvent) => {
+  if (mainWindow) mainWindow.webContents.reload()
 })
 
 ipcMain.on('app:authorize', (_event, value) => {
