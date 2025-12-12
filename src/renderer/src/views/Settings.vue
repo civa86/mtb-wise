@@ -9,12 +9,14 @@
       <template #content>
         <div class="flex gap-2 items-center">
           <label class="uppercase text-sm">Theme</label>
-          <Button
-            @click="appStore.toggleDarkMode()"
-            :icon="!appStore.darkMode ? 'pi pi-sun' : 'pi pi-moon'"
-            severity="secondary"
-            variant="outlined"
-          />
+          <SelectButton :options="themeOptions" v-model="darkMode">
+            <template #option="{ option }">
+              <div class="flex gap-2 items-center">
+                <i :class="{ 'pi pi-sun': option === 'light', 'pi pi-moon': option === 'dark' }" />
+                <span class="uppercase text-sm">{{ option }}</span>
+              </div>
+            </template>
+          </SelectButton>
         </div>
       </template>
     </Card>
@@ -101,8 +103,8 @@
 </template>
 
 <script lang="ts" setup>
+import { computed, ref } from 'vue'
 import { useRouter } from 'vue-router'
-
 import { Form } from '@primevue/forms'
 import Card from 'primevue/card'
 import InputText from 'primevue/inputtext'
@@ -111,11 +113,22 @@ import InputNumber from 'primevue/inputnumber'
 import DatePicker from 'primevue/datepicker'
 import Message from 'primevue/message'
 import Button from 'primevue/button'
+import SelectButton from 'primevue/selectbutton'
 import { useAppStore } from '../stores/app'
 import { ApplicationSetting } from '../../../types'
 
 const router = useRouter()
 const appStore = useAppStore()
+
+const themeOptions = ref(['light', 'dark'])
+
+const darkMode = computed({
+  get: () => {
+    console.log('asd')
+    return appStore.darkMode ? 'dark' : 'light'
+  },
+  set: () => appStore.toggleDarkMode()
+})
 
 const resolver = ({ values }) => {
   const errors: Record<string, Array<object>> = {}
@@ -124,10 +137,7 @@ const resolver = ({ values }) => {
   if (!values.stravaClientSecret) errors.stravaClientSecret = [{ message: 'Strava Client Secret is required.' }]
   if (!values.maintenanceHours) errors.maintenanceHours = [{ message: 'Maintenance Hours is required.' }]
 
-  return {
-    values, // (Optional) Used to pass current form values to submit event.
-    errors
-  }
+  return { values, errors }
 }
 
 const initialValues = {
@@ -146,11 +156,11 @@ const onFormSubmit = async ({ states, errors }) => {
       maintenanceHours: states.maintenanceHours.value,
       lastMaintenance: states.lastMaintenance.value === null ? null : states.lastMaintenance.value.getTime()
     }
-    console.log(payload)
-    // await appStore.saveSettings(payload)
-    // await appStore.readSettings()
 
-    // router.push({ name: 'statistics' })
+    await appStore.saveSettings(payload)
+    await appStore.readSettings()
+
+    router.push({ name: 'statistics' })
   }
 }
 </script>

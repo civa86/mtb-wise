@@ -35,7 +35,8 @@ export const useAppStore = defineStore('app', {
       return this.totalDistance / state.activities.length
     },
     avgElevation: state =>
-      state.activities.reduce((acc, activity) => acc + activity.elev_high, 0) / state.activities.length
+      state.activities.reduce((acc, activity) => acc + activity.total_elevation_gain, 0) / state.activities.length,
+    maxElevation: state => Math.max(...state.activities.map(x => x.total_elevation_gain))
   },
   actions: {
     async readSettings() {

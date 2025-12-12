@@ -1,19 +1,26 @@
 <template>
-  <div class="flex gap-1 items-center justify-center">
+  <div class="flex gap-0.5 items-center justify-center text-2xl">
     <div>{{ display(hh) }}</div>
-    <div>:</div>
+    <div class="text-sm" :class="separatorClass">:</div>
     <div>{{ display(mm) }}</div>
-    <div>:</div>
+    <div class="text-sm" :class="separatorClass">:</div>
     <div>{{ display(ss) }}</div>
   </div>
+  <div v-if="label" class="text-center text-sm uppercase text-primary-500">{{ label }}</div>
 </template>
 
 <script setup lang="ts">
 import { computed } from 'vue'
+import { useAppStore } from '../stores/app'
+
+const appStore = useAppStore()
 
 const props = defineProps<{
   seconds: number
+  label?: string
 }>()
+
+const separatorClass = computed(() => (appStore.darkMode ? 'text-orange-500' : 'text-orange-700'))
 
 const hh = computed(() => Math.floor(props.seconds / 3600))
 const mm = computed(() => Math.floor((props.seconds - hh.value * 3600) / 60))
