@@ -55,7 +55,7 @@ useAppStore(pinia)
       theme: {
         preset: Noir,
         options: {
-          darkModeSelector: false
+          darkModeSelector: '.mtb-wise-dark'
         }
       }
     })

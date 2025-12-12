@@ -19,7 +19,7 @@ const readSettings = async (): Promise<ApplicationSetting> => {
     stravaClientId: result?.stravaClientId || '',
     stravaClientSecret: result?.stravaClientSecret || '',
     stravaRedirectURI: result?.stravaRedirectURI || '',
-    maintenanceHours: result?.maintenanceHours || 120,
+    maintenanceHours: result?.maintenanceHours || 100,
     lastMaintenance: result?.lastMaintenance || null
   }
 }

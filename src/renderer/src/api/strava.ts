@@ -28,7 +28,7 @@ export const getToken = async (clientId: string, clientSecret: string, code: str
 export const fetchActivities = async (page: number, perPage: number) => {
   try {
     const instance = await ApiClient(API_BASE_URL, true)
-    const { data } = await instance.post(`/api/v3/athlete/activities?page=${page}&per_page=${perPage}`)
+    const { data } = await instance.get(`/api/v3/athlete/activities?page=${page}&per_page=${perPage}`)
     return data
   } catch (e) {
     const error = e as AxiosError

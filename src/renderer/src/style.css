@@ -2,6 +2,13 @@
 @import 'tailwindcss-primeui';
 @import 'primeicons/primeicons.css';
 
+:root {
+  --p-progressspinner-color-one: var(--p-orange-500) !important;
+  --p-progressspinner-color-two: var(--p-orange-500) !important;
+  --p-progressspinner-color-three: var(--p-orange-500) !important;
+  --p-progressspinner-color-four: var(--p-orange-500) !important;
+}
+
 body,
 html {
   margin: 0;

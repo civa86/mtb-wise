@@ -1,8 +1,8 @@
 <template>
   <Menubar :model="items" breakpoint="0px">
     <template #start>
-      <router-link :to="{ name: 'main' }" class="mr-4">
-        <img :src="logo" class="h-10" />
+      <router-link :to="{ name: 'statistics' }" class="mr-4">
+        <img :src="appStore.darkMode ? logoDark : logo" alt="logo" class="h-10" />
       </router-link>
     </template>
     <template #item="{ item }">
@@ -36,22 +36,28 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { useRoute } from 'vue-router'
-import logo from '../assets/logo.png'
 import Menubar from 'primevue/menubar'
 import Button from 'primevue/button'
 
+import logo from '../assets/logo.png'
+import logoDark from '../assets/logo-dark.png'
+
+import { useAppStore } from '../stores/app'
+
 const route = useRoute()
+
+const appStore = useAppStore()
 
 const items = ref([
   {
-    label: 'Stats',
-    icon: 'pi pi-cog',
-    routeName: 'main'
+    label: 'Statistics',
+    icon: 'pi pi-chart-bar',
+    routeName: 'statistics'
   },
   {
     label: 'Activities',
-    icon: 'pi pi-cog',
-    routeName: 'main'
+    icon: 'pi pi-list',
+    routeName: 'activities'
   }
 ])
 </script>

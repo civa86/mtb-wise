@@ -11,6 +11,8 @@ let authWindow: BrowserWindow | null = null
 
 const AUTH_DATA = 'auth_data.json'
 const APP_SETTINGS = 'app_settings.json'
+const APP_WINDOW_WIDTH = 800
+const APP_WINDOW_HEIGHT = 600
 
 const getUserDataPath = (name: string) => join(app.getPath('userData'), name)
 
@@ -24,9 +26,10 @@ const readUserData = <T>(name: string) => {
 const createWindow = (): void => {
   // Create the browser window.
   mainWindow = new BrowserWindow({
-    width: 500,
-    minWidth: 500,
-    height: 650,
+    width: APP_WINDOW_WIDTH,
+    minWidth: APP_WINDOW_WIDTH,
+    height: APP_WINDOW_HEIGHT,
+    minHeight: APP_WINDOW_HEIGHT,
     show: false,
     autoHideMenuBar: true,
     ...(process.platform === 'linux' ? { icon } : {}),

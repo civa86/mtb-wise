@@ -27,7 +27,24 @@ const routes: Array<RouteRecordRaw> = [
   {
     name: 'main',
     path: '/',
-    component: () => import('../views/Main.vue')
+    component: () => import('../views/Main.vue'),
+    children: [
+      {
+        name: 'home',
+        path: '',
+        redirect: () => ({ name: 'statistics' })
+      },
+      {
+        name: 'statistics',
+        path: 'statistics',
+        component: () => import('../views/Statistics.vue')
+      },
+      {
+        name: 'activities',
+        path: 'activities',
+        component: () => import('../views/Activities.vue')
+      }
+    ]
   },
   {
     name: 'settings',

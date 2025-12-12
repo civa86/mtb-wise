@@ -1,31 +1,65 @@
 <template>
-  <div class="flex justify-center">
+  <div class="flex flex-col gap-4 w-full">
     <Card class="w-full">
-      <template #title>
-        <div class="flex items-center gap-2 border-b pb-2">
-          <i class="pi pi-cog" style="font-size: 1.5rem"></i>
-          <span>Settings</span>
+      <template #subtitle>
+        <div class="flex items-center gap-2 border-b border-orange-500 pb-1">
+          <span>APPLICATION</span>
         </div>
       </template>
       <template #content>
-        <Form v-slot="$form" :resolver :initialValues @submit="onFormSubmit" class="mt-2 flex flex-col gap-4 w-full">
-          <div class="flex flex-col gap-4">
+        <div class="flex gap-2 items-center">
+          <label class="uppercase text-sm">Theme</label>
+          <Button
+            @click="appStore.toggleDarkMode()"
+            :icon="!appStore.darkMode ? 'pi pi-sun' : 'pi pi-moon'"
+            severity="secondary"
+            variant="outlined"
+          />
+        </div>
+      </template>
+    </Card>
+    <Form v-slot="$form" :resolver :initialValues @submit="onFormSubmit" class="flex flex-col gap-4 w-full">
+      <Card class="w-full">
+        <template #subtitle>
+          <div class="flex items-center gap-2 border-b border-orange-500 pb-1">
+            <span>STRAVA</span>
+          </div>
+        </template>
+        <template #content>
+          <div class="grid grid-cols-4 gap-4">
             <!-- STRAVA CLIENT ID -->
             <div>
-              <label class="uppercase text-sm">Strava Client ID</label>
+              <label class="uppercase text-sm">Client ID</label>
               <InputText name="stravaClientId" :model-value="initialValues.stravaClientId" type="text" fluid />
               <Message v-if="$form.stravaClientId?.invalid" severity="error" size="small" variant="simple">
                 {{ $form.stravaClientId.error?.message }}
               </Message>
             </div>
             <!-- STRAVA CLIENT SECRET -->
-            <div>
+            <div class="col-span-3">
               <label class="uppercase text-sm">Strava Client Secret</label>
-              <InputText name="stravaClientSecret" :model-value="initialValues.stravaClientSecret" type="text" fluid />
+              <Password
+                name="stravaClientSecret"
+                :model-value="initialValues.stravaClientSecret"
+                toggleMask
+                fluid
+                :feedback="false"
+              />
               <Message v-if="$form.stravaClientSecret?.invalid" severity="error" size="small" variant="simple">
                 {{ $form.stravaClientSecret.error?.message }}
               </Message>
             </div>
+          </div>
+        </template>
+      </Card>
+      <Card class="w-full">
+        <template #subtitle>
+          <div class="flex items-center gap-2 border-b border-orange-500 pb-1">
+            <span>BIKE MAINTENANCE</span>
+          </div>
+        </template>
+        <template #content>
+          <div class="grid grid-cols-2 gap-4">
             <!-- LAST MAINTENANCE DATE -->
             <div>
               <label class="uppercase text-sm">Last Maintenance Date</label>
@@ -40,7 +74,6 @@
                 {{ $form.lastMaintenance.error?.message }}
               </Message>
             </div>
-
             <!-- MAINTENANCE HOURS -->
             <div>
               <label class="uppercase text-sm">Maintenance Hours</label>
@@ -58,10 +91,12 @@
               </Message>
             </div>
           </div>
-          <Button type="submit" severity="primary" label="Save" icon="pi pi-save" />
-        </Form>
-      </template>
-    </Card>
+        </template>
+      </Card>
+      <div class="flex items-center justify-end">
+        <Button class="w-1/3" type="submit" severity="primary" label="Save" icon="pi pi-save" />
+      </div>
+    </Form>
   </div>
 </template>
 
@@ -71,6 +106,7 @@ import { useRouter } from 'vue-router'
 import { Form } from '@primevue/forms'
 import Card from 'primevue/card'
 import InputText from 'primevue/inputtext'
+import Password from 'primevue/password'
 import InputNumber from 'primevue/inputnumber'
 import DatePicker from 'primevue/datepicker'
 import Message from 'primevue/message'
@@ -110,10 +146,11 @@ const onFormSubmit = async ({ states, errors }) => {
       maintenanceHours: states.maintenanceHours.value,
       lastMaintenance: states.lastMaintenance.value === null ? null : states.lastMaintenance.value.getTime()
     }
-    await appStore.saveSettings(payload)
-    await appStore.readSettings()
+    console.log(payload)
+    // await appStore.saveSettings(payload)
+    // await appStore.readSettings()
 
-    router.push({ name: 'main' })
+    // router.push({ name: 'statistics' })
   }
 }
 </script>
