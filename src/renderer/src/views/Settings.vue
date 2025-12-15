@@ -2,7 +2,7 @@
   <div class="flex flex-col gap-4 w-full">
     <Card class="w-full">
       <template #subtitle>
-        <div class="flex items-center gap-2 border-b border-orange-500 pb-1">
+        <div class="flex items-center gap-2 border-b border-orange-600 pb-1">
           <span>APPLICATION</span>
         </div>
       </template>
@@ -23,7 +23,7 @@
     <Form v-slot="$form" :resolver :initialValues @submit="onFormSubmit" class="flex flex-col gap-4 w-full">
       <Card class="w-full">
         <template #subtitle>
-          <div class="flex items-center gap-2 border-b border-orange-500 pb-1">
+          <div class="flex items-center gap-2 border-b border-orange-600 pb-1">
             <span>STRAVA</span>
           </div>
         </template>
@@ -56,7 +56,7 @@
       </Card>
       <Card class="w-full">
         <template #subtitle>
-          <div class="flex items-center gap-2 border-b border-orange-500 pb-1">
+          <div class="flex items-center gap-2 border-b border-orange-600 pb-1">
             <span>BIKE MAINTENANCE</span>
           </div>
         </template>

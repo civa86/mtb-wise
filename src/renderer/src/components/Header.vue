@@ -2,7 +2,7 @@
   <Menubar :model="items" breakpoint="0px">
     <template #start>
       <router-link :to="{ name: 'statistics' }" class="mr-4">
-        <img :src="appStore.darkMode ? logoDark : logo" alt="logo" class="h-10" />
+        <Logo class="size-16" :dark-mode="appStore.darkMode" />
       </router-link>
     </template>
     <template #item="{ item }">
@@ -39,10 +39,9 @@ import { useRoute } from 'vue-router'
 import Menubar from 'primevue/menubar'
 import Button from 'primevue/button'
 
-import logo from '../assets/logo.png'
-import logoDark from '../assets/logo-dark.png'
-
 import { useAppStore } from '../stores/app'
+
+import Logo from '../components/Logo.vue'
 
 const route = useRoute()
 

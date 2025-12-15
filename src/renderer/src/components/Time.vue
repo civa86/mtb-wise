@@ -11,16 +11,14 @@
 
 <script setup lang="ts">
 import { computed } from 'vue'
-import { useAppStore } from '../stores/app'
-
-const appStore = useAppStore()
 
 const props = defineProps<{
   seconds: number
+  darkMode: boolean
   label?: string
 }>()
 
-const separatorClass = computed(() => (appStore.darkMode ? 'text-orange-500' : 'text-orange-700'))
+const separatorClass = computed(() => (props.darkMode ? 'text-orange-600' : 'text-orange-700'))
 
 const hh = computed(() => Math.floor(props.seconds / 3600))
 const mm = computed(() => Math.floor((props.seconds - hh.value * 3600) / 60))

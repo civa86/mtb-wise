@@ -3,10 +3,18 @@
 @import 'primeicons/primeicons.css';
 
 :root {
-  --p-progressspinner-color-one: var(--p-orange-500) !important;
-  --p-progressspinner-color-two: var(--p-orange-500) !important;
-  --p-progressspinner-color-three: var(--p-orange-500) !important;
-  --p-progressspinner-color-four: var(--p-orange-500) !important;
+  --p-progressspinner-color-one: var(--p-orange-600) !important;
+  --p-progressspinner-color-two: var(--p-orange-600) !important;
+  --p-progressspinner-color-three: var(--p-orange-600) !important;
+  --p-progressspinner-color-four: var(--p-orange-600) !important;
+
+  --p-progressbar-label-color: var(--p-orange-400) !important;
+  --p-progressbar-value-background: var(--p-zinc-700) !important;
+}
+
+.mtb-wise-dark:root {
+  --p-progressbar-label-color: var(--p-orange-700) !important;
+  --p-progressbar-value-background: var(--p-zinc-200) !important;
 }
 
 body,
@@ -18,4 +26,12 @@ html {
 
 #app {
   height: 100%;
+}
+
+.p-fieldset-legend {
+  @apply text-xs text-orange-600;
+}
+
+.mtb-wise-dark .p-fieldset-legend {
+  @apply text-xs text-orange-600;
 }
