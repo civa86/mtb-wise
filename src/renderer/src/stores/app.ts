@@ -2,7 +2,7 @@ import { defineStore } from 'pinia'
 import { RemovableRef, useLocalStorage } from '@vueuse/core'
 import { ApplicationSetting } from 'src/types'
 import { useAuthStore } from './auth'
-import { fetchActivities } from '../api/strava'
+// import { fetchActivities } from '../api/strava'
 
 type AppState = {
   settings: ApplicationSetting | null
@@ -12,8 +12,8 @@ type AppState = {
   darkMode: RemovableRef<boolean>
 }
 
-const ACTIVITIES_PER_PAGE = 50
-const MTB_SPORT_TYPE = 'MountainBikeRide'
+// const ACTIVITIES_PER_PAGE = 50
+// const MTB_SPORT_TYPE = 'MountainBikeRide'
 
 export const useAppStore = defineStore('app', {
   state: (): AppState => ({
@@ -68,7 +68,8 @@ export const useAppStore = defineStore('app', {
       this.darkMode = !this.darkMode
       document.documentElement.classList.toggle('mtb-wise-dark')
     },
-    async fetchData(page = 1) {
+    // async fetchData(page = 1) {
+    async fetchData() {
       try {
         this.isFetching = true
 

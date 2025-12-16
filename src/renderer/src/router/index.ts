@@ -3,7 +3,7 @@ import {
   RouteRecordRaw,
   RouteLocationNormalized,
   NavigationGuardNext,
-  createWebHistory
+  createWebHashHistory
 } from 'vue-router'
 import { useAppStore } from '../stores/app'
 import { useAuthStore } from '@renderer/stores/auth'
@@ -57,7 +57,7 @@ const routes: Array<RouteRecordRaw> = [
 ]
 
 const router = createRouter({
-  history: createWebHistory(import.meta.env.BASE_URL),
+  history: createWebHashHistory(),
   routes
 })
 
