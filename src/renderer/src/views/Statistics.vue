@@ -14,43 +14,31 @@
       </template>
     </Card>
 
-    <div class="grid grid-cols-3 gap-4">
-      <Card>
-        <template #content>
-          <Time :seconds="appStore.totalTime" :dark-mode="appStore.darkMode" label="Total Time" />
-        </template>
-      </Card>
-      <Card>
-        <template #content>
-          <Distance :distance="appStore.totalDistance" :dark-mode="appStore.darkMode" label="Total Kilometers" />
-        </template>
-      </Card>
-      <Card>
-        <template #content>
-          <Elevation :elevation="appStore.maxElevation" :dark-mode="appStore.darkMode" label="Highest +Elevation" />
-        </template>
-      </Card>
+    <Card>
+      <template #content>
+        <Fieldset legend="SUMMARY">
+          <div class="grid grid-cols-3 gap-8">
+            <Time :seconds="appStore.totalTime" :dark-mode="appStore.darkMode" label="Total Time" />
 
-      <Card>
-        <template #content>
-          <Time :seconds="appStore.avgTime" :dark-mode="appStore.darkMode" label="Average Time" />
-        </template>
-      </Card>
-      <Card>
-        <template #content>
-          <Distance :distance="appStore.avgDistance" :dark-mode="appStore.darkMode" label="Average Kilometers" />
-        </template>
-      </Card>
-      <Card>
-        <template #content>
-          <Elevation :elevation="appStore.avgElevation" :dark-mode="appStore.darkMode" label="Average +Elevation" />
-        </template>
-      </Card>
-    </div>
+            <Distance :distance="appStore.totalDistance" :dark-mode="appStore.darkMode" label="Total Kilometers" />
+
+            <Elevation :elevation="appStore.maxElevation" :dark-mode="appStore.darkMode" label="Highest +Elevation" />
+
+            <Time :seconds="appStore.avgTime" :dark-mode="appStore.darkMode" label="Average Time" />
+
+            <Distance :distance="appStore.avgDistance" :dark-mode="appStore.darkMode" label="Average Kilometers" />
+
+            <Elevation :elevation="appStore.avgElevation" :dark-mode="appStore.darkMode" label="Average +Elevation" />
+          </div>
+        </Fieldset>
+      </template>
+    </Card>
   </div>
 </template>
 <script lang="ts" setup>
 import Card from 'primevue/card'
+import Fieldset from 'primevue/fieldset'
+
 import { useAppStore } from '../stores/app'
 
 import Time from '../components/Time.vue'

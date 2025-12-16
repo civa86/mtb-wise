@@ -11,8 +11,8 @@ let authWindow: BrowserWindow | null = null
 
 const AUTH_DATA = 'auth_data.json'
 const APP_SETTINGS = 'app_settings.json'
-const APP_WINDOW_WIDTH = 900
-const APP_WINDOW_HEIGHT = 620
+const APP_WINDOW_WIDTH = 840
+const APP_WINDOW_HEIGHT = 600
 
 const getUserDataPath = (name: string) => join(app.getPath('userData'), name)
 

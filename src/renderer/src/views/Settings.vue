@@ -1,5 +1,5 @@
 <template>
-  <Form v-slot="$form" :resolver :initialValues @submit="onFormSubmit" class="flex flex-col gap-4 w-full">
+  <Form v-slot="$form" :resolver :initialValues @submit="onFormSubmit">
     <Menubar breakpoint="0px" class="mb-4">
       <template #start>
         <router-link :to="{ name: 'statistics' }" class="mr-4">

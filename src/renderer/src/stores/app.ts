@@ -78,7 +78,7 @@ export const useAppStore = defineStore('app', {
           console.log('mock fetched')
           this.activities = data
           this.isFetching = false
-        }, 1500)
+        }, 30)
         //END MOCK
 
         // const authStore = useAuthStore()

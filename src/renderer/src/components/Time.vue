@@ -1,12 +1,14 @@
 <template>
-  <div class="flex gap-0.5 items-center justify-center text-2xl">
-    <div>{{ display(hh) }}</div>
-    <div class="text-sm" :class="separatorClass">:</div>
-    <div>{{ display(mm) }}</div>
-    <div class="text-sm" :class="separatorClass">:</div>
-    <div>{{ display(ss) }}</div>
+  <div>
+    <div class="flex gap-0.5 items-center justify-center text-2xl">
+      <div>{{ display(hh) }}</div>
+      <div class="text-sm" :class="separatorClass">:</div>
+      <div>{{ display(mm) }}</div>
+      <div class="text-sm" :class="separatorClass">:</div>
+      <div>{{ display(ss) }}</div>
+    </div>
+    <div v-if="label" class="text-center text-sm uppercase text-primary-500">{{ label }}</div>
   </div>
-  <div v-if="label" class="text-center text-sm uppercase text-primary-500">{{ label }}</div>
 </template>
 
 <script setup lang="ts">
