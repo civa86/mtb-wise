@@ -40,21 +40,10 @@ export const useAppStore = defineStore('app', {
   },
   actions: {
     async readSettings() {
-      try {
-        this.error = false
-        this.settings = await window.api.readSettings()
-      } catch (e) {
-        this.error = true
-      }
+      this.settings = await window.api.readSettings()
     },
     async saveSettings(settings: Partial<ApplicationSetting>) {
-      try {
-        this.error = false
-        const result = await window.api.writeSettings(settings)
-        if (!result) this.error = true
-      } catch (e) {
-        this.error = true
-      }
+      await window.api.writeSettings(settings)
     },
     reload() {
       window.api.reload()

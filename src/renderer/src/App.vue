@@ -27,11 +27,13 @@
     <div v-if="appStore.isFetching" class="fixed top-0 left-0 w-full h-full flex items-center justify-center">
       <ProgressSpinner />
     </div>
+    <Toast />
   </div>
 </template>
 <script lang="ts" setup>
 import { useRoute } from 'vue-router'
 import ProgressSpinner from 'primevue/progressspinner'
+import Toast from 'primevue/toast'
 
 import { useAuthStore } from './stores/auth'
 import { useAppStore } from './stores/app'

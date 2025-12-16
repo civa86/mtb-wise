@@ -123,7 +123,10 @@
 <script lang="ts" setup>
 import { computed, ref } from 'vue'
 import { useRouter } from 'vue-router'
+
 import { Form } from '@primevue/forms'
+import { useToast } from 'primevue/usetoast'
+
 import Menubar from 'primevue/menubar'
 import Card from 'primevue/card'
 import InputText from 'primevue/inputtext'
@@ -133,12 +136,16 @@ import DatePicker from 'primevue/datepicker'
 import Message from 'primevue/message'
 import Button from 'primevue/button'
 import SelectButton from 'primevue/selectbutton'
+
 import { ApplicationSetting } from '../../../types'
+
 import { useAppStore } from '../stores/app'
 import Logo from '../components/Logo.vue'
 
 const router = useRouter()
 const appStore = useAppStore()
+
+const toast = useToast()
 
 const themeOptions = ref(['light', 'dark'])
 
@@ -179,10 +186,15 @@ const onFormSubmit = async ({ states, errors }) => {
       lastMaintenance: states.lastMaintenance.value === null ? null : states.lastMaintenance.value.getTime()
     }
 
-    await appStore.saveSettings(payload)
-    await appStore.readSettings()
+    try {
+      await appStore.saveSettings(payload)
+      await appStore.readSettings()
 
-    gotoHome()
+      toast.add({ severity: 'success', summary: 'Done', detail: 'Settings saved successfully', life: 3000 })
+      gotoHome()
+    } catch (e) {
+      toast.add({ severity: 'error', summary: 'Error', detail: 'Settings could not be saved', life: 3000 })
+    }
   }
 }
 </script>
