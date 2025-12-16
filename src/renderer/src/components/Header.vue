@@ -20,13 +20,7 @@
     <template #end>
       <div class="flex items-center gap-2">
         <router-link :to="{ name: 'settings' }">
-          <Button
-            icon="pi pi-cog"
-            :severity="route.name === 'settings' ? 'primary' : 'secondary'"
-            :variant="route.name === 'settings' ? '' : 'text'"
-            size="large"
-            rounded
-          />
+          <Button icon="pi pi-cog" severity="secondary" variant="text" size="large" rounded />
         </router-link>
       </div>
     </template>

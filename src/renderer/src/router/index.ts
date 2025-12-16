@@ -13,10 +13,8 @@ const init = async (to: RouteLocationNormalized, _from: RouteLocationNormalized,
   const authStore = useAuthStore()
   if (to.name !== 'settings') {
     if (!appStore.isSettingFilled) {
-      console.log('fill settings!!')
       return next({ name: 'settings' })
     } else if (!authStore.isAuthFilled) {
-      console.log('fill auth!!')
       authStore.authorize(appStore.settings?.stravaClientId as string, appStore.settings?.stravaRedirectURI as string)
     }
   }

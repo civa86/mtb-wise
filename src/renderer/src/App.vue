@@ -21,7 +21,7 @@
       <GeneralError @reload="appStore.reload()" />
     </div>
     <div class="h-full" v-else>
-      <Header class="mb-4" />
+      <Header class="mb-4" v-if="route.name !== 'settings'" />
       <router-view />
     </div>
     <div v-if="appStore.isFetching" class="fixed top-0 left-0 w-full h-full flex items-center justify-center">
@@ -30,6 +30,7 @@
   </div>
 </template>
 <script lang="ts" setup>
+import { useRoute } from 'vue-router'
 import ProgressSpinner from 'primevue/progressspinner'
 
 import { useAuthStore } from './stores/auth'
@@ -41,4 +42,6 @@ import Header from './components/Header.vue'
 
 const authStore = useAuthStore()
 const appStore = useAppStore()
+
+const route = useRoute()
 </script>

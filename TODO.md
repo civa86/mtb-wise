@@ -4,3 +4,6 @@
 [ ] create a type for activities
 [ ] cache activities on disk and call only after the max date saved
 [ ] get activity photos in a popup?
+[ ] show toast with settings save
+[ ] different colors for progress bar in suspensions
+[ ] test complete workflow from first settings etc...

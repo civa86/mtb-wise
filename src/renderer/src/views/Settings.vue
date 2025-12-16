@@ -1,26 +1,47 @@
 <template>
-  <div class="flex flex-col gap-4 w-full">
-    <Card class="w-full">
-      <template #subtitle>
-        <div class="flex items-center gap-2 border-b border-orange-600 pb-1">
-          <span>APPLICATION</span>
+  <Form v-slot="$form" :resolver :initialValues @submit="onFormSubmit" class="flex flex-col gap-4 w-full">
+    <Menubar breakpoint="0px" class="mb-4">
+      <template #start>
+        <router-link :to="{ name: 'statistics' }" class="mr-4">
+          <Logo class="size-16" :dark-mode="appStore.darkMode" />
+        </router-link>
+      </template>
+      <template #end>
+        <div class="flex items-center gap-4">
+          <Button
+            v-if="appStore.isSettingFilled"
+            type="button"
+            severity="secondary"
+            label="Cancel"
+            icon="pi pi-times"
+            @click="gotoHome()"
+          />
+          <Button type="submit" severity="primary" label="Save" icon="pi pi-save" />
         </div>
       </template>
-      <template #content>
-        <div class="flex gap-2 items-center">
-          <label class="uppercase text-sm">Theme</label>
-          <SelectButton :options="themeOptions" v-model="darkMode">
-            <template #option="{ option }">
-              <div class="flex gap-2 items-center">
-                <i :class="{ 'pi pi-sun': option === 'light', 'pi pi-moon': option === 'dark' }" />
-                <span class="uppercase text-sm">{{ option }}</span>
-              </div>
-            </template>
-          </SelectButton>
-        </div>
-      </template>
-    </Card>
-    <Form v-slot="$form" :resolver :initialValues @submit="onFormSubmit" class="flex flex-col gap-4 w-full">
+    </Menubar>
+    <div class="flex flex-col gap-4 w-full">
+      <Card class="w-full">
+        <template #subtitle>
+          <div class="flex items-center gap-2 border-b border-orange-600 pb-1">
+            <span>APPLICATION</span>
+          </div>
+        </template>
+        <template #content>
+          <div class="flex gap-2 items-center">
+            <label class="uppercase text-sm">Theme</label>
+            <SelectButton :options="themeOptions" v-model="darkMode">
+              <template #option="{ option }">
+                <div class="flex gap-2 items-center">
+                  <i :class="{ 'pi pi-sun': option === 'light', 'pi pi-moon': option === 'dark' }" />
+                  <span class="uppercase text-sm">{{ option }}</span>
+                </div>
+              </template>
+            </SelectButton>
+          </div>
+        </template>
+      </Card>
+
       <Card class="w-full">
         <template #subtitle>
           <div class="flex items-center gap-2 border-b border-orange-600 pb-1">
@@ -95,17 +116,15 @@
           </div>
         </template>
       </Card>
-      <div class="flex items-center justify-end">
-        <Button class="w-1/3" type="submit" severity="primary" label="Save" icon="pi pi-save" />
-      </div>
-    </Form>
-  </div>
+    </div>
+  </Form>
 </template>
 
 <script lang="ts" setup>
 import { computed, ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { Form } from '@primevue/forms'
+import Menubar from 'primevue/menubar'
 import Card from 'primevue/card'
 import InputText from 'primevue/inputtext'
 import Password from 'primevue/password'
@@ -114,8 +133,9 @@ import DatePicker from 'primevue/datepicker'
 import Message from 'primevue/message'
 import Button from 'primevue/button'
 import SelectButton from 'primevue/selectbutton'
-import { useAppStore } from '../stores/app'
 import { ApplicationSetting } from '../../../types'
+import { useAppStore } from '../stores/app'
+import Logo from '../components/Logo.vue'
 
 const router = useRouter()
 const appStore = useAppStore()
@@ -148,6 +168,8 @@ const initialValues = {
   maintenanceHours: appStore.settings?.maintenanceHours
 }
 
+const gotoHome = () => router.push({ name: 'home' })
+
 const onFormSubmit = async ({ states, errors }) => {
   if (Object.keys(errors).length === 0) {
     const payload: Partial<ApplicationSetting> = {
@@ -160,7 +182,7 @@ const onFormSubmit = async ({ states, errors }) => {
     await appStore.saveSettings(payload)
     await appStore.readSettings()
 
-    router.push({ name: 'statistics' })
+    gotoHome()
   }
 }
 </script>
