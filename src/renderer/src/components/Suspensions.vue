@@ -15,6 +15,7 @@
 <script setup lang="ts">
 import ProgressBar from 'primevue/progressbar'
 import Fieldset from 'primevue/fieldset'
+import { getActivitiesMinDate } from '../utils'
 import Time from '../components/Time.vue'
 
 const props = defineProps<{
@@ -24,20 +25,7 @@ const props = defineProps<{
   darkMode: boolean
 }>()
 
-const getLastMaintenance = () => {
-  let result = ''
-  if (props.lastMaintenance !== null && props.lastMaintenance > 0) {
-    //TODO: parse number...
-  } else {
-    const maxDate = '9999-12-31T23:59:59Z'
-    result = props.activities
-      .map(x => x.start_date_local || maxDate)
-      .sort()
-      .shift()
-  }
-
-  return result
-}
+const getLastMaintenance = () => (props.lastMaintenance ? '' : getActivitiesMinDate(props.activities))
 
 const lastMaintenanceDate = getLastMaintenance()
 
@@ -45,7 +33,7 @@ const maxUsageSeconds = props.maintenanceHours * 60 * 60
 // const maxUsageSeconds = 500 * 60 * 60
 
 const secondsSinceLast = props.activities
-  .filter(a => a.start_date_local >= lastMaintenanceDate)
+  .filter(a => a.start_date >= lastMaintenanceDate)
   .reduce((acc, activity) => acc + activity.moving_time, 0)
 
 const secondsBeforeNext = maxUsageSeconds - secondsSinceLast

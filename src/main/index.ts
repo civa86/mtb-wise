@@ -4,13 +4,14 @@ import { existsSync, readFileSync, writeFileSync } from 'fs'
 import { electronApp, optimizer, is } from '@electron-toolkit/utils'
 import icon from '../../resources/icon.png?asset'
 import httpServer from './services/httpServer'
-import { ApplicationSetting, AuthData } from '../types'
+import { Activity, ApplicationSetting, AuthData } from '../types'
 
 let mainWindow: BrowserWindow | null = null
 let authWindow: BrowserWindow | null = null
 
 const AUTH_DATA = 'auth_data.json'
 const APP_SETTINGS = 'app_settings.json'
+const APP_ACTIVITIES = 'app_activities.json'
 const APP_WINDOW_WIDTH = 840
 const APP_WINDOW_HEIGHT = 600
 
@@ -18,9 +19,13 @@ const getUserDataPath = (name: string) => join(app.getPath('userData'), name)
 
 const readUserData = <T>(name: string) => {
   const userDataPath = getUserDataPath(name)
-  let data = {} as T
-  if (existsSync(userDataPath)) data = JSON.parse(readFileSync(userDataPath, 'utf-8'))
-  return data
+  try {
+    if (existsSync(userDataPath)) return JSON.parse(readFileSync(userDataPath, 'utf-8')) as T
+    return null
+  } catch (e) {
+    console.error(e)
+    return null
+  }
 }
 
 const createWindow = (): void => {
@@ -98,6 +103,7 @@ app.whenReady().then(() => {
       }
     })
   } catch (e) {
+    console.error(e)
     app.quit()
   }
 })
@@ -118,11 +124,13 @@ app.on('quit', () => {
 ipcMain.handle('app:read-settings', (): ApplicationSetting | null => {
   try {
     const data = readUserData<ApplicationSetting>(APP_SETTINGS)
+    if (!data) return null
     return {
       ...data,
       stravaRedirectURI: httpServer.getURL()
     }
   } catch (e) {
+    console.error(e)
     return null
   }
 })
@@ -133,6 +141,28 @@ ipcMain.handle('app:write-settings', (_event: IpcMainInvokeEvent, settings: Appl
     writeFileSync(userDataPath, JSON.stringify(settings))
     return true
   } catch (e) {
+    console.error(e)
+    return false
+  }
+})
+
+ipcMain.handle('app:read-activities', (): Array<Activity> | null => {
+  try {
+    const data = readUserData<Array<Activity>>(APP_ACTIVITIES)
+    return data
+  } catch (e) {
+    console.error(e)
+    return null
+  }
+})
+
+ipcMain.handle('app:write-activities', (_event: IpcMainInvokeEvent, activities: Array<Activity>): boolean => {
+  try {
+    const userDataPath = getUserDataPath(APP_ACTIVITIES)
+    writeFileSync(userDataPath, JSON.stringify(activities))
+    return true
+  } catch (e) {
+    console.error(e)
     return false
   }
 })
@@ -142,6 +172,7 @@ ipcMain.handle('auth:read-data', (): AuthData | null => {
     const data = readUserData<AuthData>(AUTH_DATA)
     return data
   } catch (e) {
+    console.error(e)
     return null
   }
 })
@@ -152,6 +183,7 @@ ipcMain.handle('auth:write-data', (_event: IpcMainInvokeEvent, settings: AuthDat
     writeFileSync(userDataPath, JSON.stringify(settings))
     return true
   } catch (e) {
+    console.error(e)
     return false
   }
 })

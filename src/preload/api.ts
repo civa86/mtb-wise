@@ -1,5 +1,5 @@
 import { ipcRenderer } from 'electron'
-import { ApplicationSetting, AuthData } from '../types'
+import { Activity, ApplicationSetting, AuthData } from '../types'
 
 export interface Api {
   reload: () => void
@@ -7,6 +7,8 @@ export interface Api {
   writeSettings: (settings: Partial<ApplicationSetting>) => Promise<boolean>
   readAuthData: () => Promise<AuthData>
   writeAuthData: (data: AuthData) => Promise<boolean>
+  readActivities: () => Promise<Array<Activity>>
+  writeActivities: (activities: Array<Activity>) => Promise<boolean>
   authorize: (authURL: string) => void
   onSetAuthorizationCode: (callback: (code: string) => void) => void
 }
@@ -44,6 +46,16 @@ const writeAuthData = async (data: AuthData) => {
   return result
 }
 
+const readActivities = async (): Promise<Array<Activity>> => {
+  const result = await ipcRenderer.invoke('app:read-activities')
+  return result || []
+}
+
+const writeActivities = async (activities: Array<Activity>) => {
+  const result = await ipcRenderer.invoke('app:write-activities', activities)
+  return result
+}
+
 const authorize = (authURL: string) => ipcRenderer.send('app:authorize', authURL)
 
 const onSetAuthorizationCode = (callback: (value: string) => void) =>
@@ -55,6 +67,8 @@ export default {
   writeSettings,
   readAuthData,
   writeAuthData,
+  readActivities,
+  writeActivities,
   authorize,
   onSetAuthorizationCode
 }

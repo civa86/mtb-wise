@@ -1,10 +1,13 @@
-[X] SETTING: put dark mode inside
-[ ] SETTING: put language selectior + vue i18n
-[ ] stiky header
-[ ] create a type for activities
-[ ] cache activities on disk and call only after the max date saved
-[ ] get activity photos in a popup?
-[X] show toast with settings save
-[ ] different colors for progress bar in suspensions
+[X] GENERAL create a type for activities
+[X] GENERAL cache activities on disk and call only after the max date saved
+[X] SETTINGS put dark mode inside
+[X] SETTINGS show toast with settings save
+[ ] SETTINGS put language selectior + vue i18n
+[ ] SUSPENSIONS implement read of last activity date
+[ ] SUSPENSIONS different colors for progress bar in suspensions
+[ ] ACTIVITIES stiky header
+[ ] ACTIVITIES get activity photos in a popup?
+[ ] UI make a better icon
+[ ] ALL clean console log
+
 [ ] test complete workflow from first settings etc...
-[ ] make a better icon

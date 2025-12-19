@@ -1,8 +1,9 @@
 import { defineStore } from 'pinia'
 import { RemovableRef, useLocalStorage } from '@vueuse/core'
-import { ApplicationSetting } from 'src/types'
+import { ApplicationSetting } from '../../../types'
+import { getActivitiesMaxDate } from '../utils'
 import { useAuthStore } from './auth'
-// import { fetchActivities } from '../api/strava'
+import { fetchActivities } from '../api/strava'
 
 type AppState = {
   settings: ApplicationSetting | null
@@ -12,8 +13,8 @@ type AppState = {
   darkMode: RemovableRef<boolean>
 }
 
-// const ACTIVITIES_PER_PAGE = 50
-// const MTB_SPORT_TYPE = 'MountainBikeRide'
+const ACTIVITIES_PER_PAGE = 200
+const MTB_SPORT_TYPE = 'MountainBikeRide'
 
 export const useAppStore = defineStore('app', {
   state: (): AppState => ({
@@ -68,26 +69,23 @@ export const useAppStore = defineStore('app', {
       this.darkMode = !this.darkMode
       document.documentElement.classList.toggle('mtb-wise-dark')
     },
-    // async fetchData(page = 1) {
+    async fetchActivities(page, after?: number) {
+      const authStore = useAuthStore()
+      await authStore.refreshToken()
+      const fetchedActivities = await fetchActivities(page, ACTIVITIES_PER_PAGE, after)
+      this.activities = [...this.activities, ...fetchedActivities.filter(x => x.sport_type === MTB_SPORT_TYPE)]
+      if (fetchedActivities.length === ACTIVITIES_PER_PAGE) await this.fetchActivities(page + 1)
+    },
     async fetchData() {
       try {
         this.isFetching = true
-
-        //START MOCK
-        const data = await (await import('../assets/mock.json')).default
-        setTimeout(() => {
-          console.log('mock fetched')
-          this.activities = data
-          this.isFetching = false
-        }, 30)
-        //END MOCK
-
-        // const authStore = useAuthStore()
-        // await authStore.refreshToken()
-        // const fetchedActivities = await fetchActivities(page, ACTIVITIES_PER_PAGE)
-        // this.activities = [...this.activities, ...fetchedActivities.filter(x => x.sport_type === MTB_SPORT_TYPE)]
-        // if (fetchedActivities.length === ACTIVITIES_PER_PAGE) await this.fetchData(page + 1)
-        // else this.isFetching = false
+        this.activities = await window.api.readActivities()
+        console.log('cached activities', this.activities.length)
+        const lastActivityDate = getActivitiesMaxDate(this.activities)
+        const after = lastActivityDate ? new Date(lastActivityDate).getTime() / 1000 : undefined
+        await this.fetchActivities(1, after)
+        await window.api.writeActivities(JSON.parse(JSON.stringify(this.activities)))
+        this.isFetching = false
       } catch (e) {
         this.error = true
         this.isFetching = false

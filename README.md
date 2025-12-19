@@ -27,6 +27,15 @@ $ yarn build:mac
 $ yarn build:linux
 ```
 
+## User Data
+
+```bash
+# Mac OSX
+open ~/Library/Application\ Support/mtb-wise
+```
+
 ## Strava
 
-https://developers.strava.com/docs/getting-started/
+Getting Started: https://developers.strava.com/docs/getting-started/
+
+API V3 Reference: https://developers.strava.com/docs/reference/
