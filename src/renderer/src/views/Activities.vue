@@ -29,12 +29,37 @@
               <div class="flex flex-col">
                 <div v-for="(item, index) in slotProps.items" :key="`activity-${index}`">
                   <div
-                    class="p-6 gap-4 flex items-center"
+                    class="p-6 flex flex-col gap-4"
                     :class="{ 'border-t border-surface-200 dark:border-surface-700': index !== 0 }"
                   >
-                    <div class="flex flex-col gap-1">
+                    <div class="flex items-center justify-between">
                       <div>{{ item.name }}</div>
-                      <div class="text-sm dark:text-surface-500">{{ item.start_date_local }}</div>
+                      <div class="text-sm dark:text-surface-500">{{ formatActivityDate(item.start_date) }}</div>
+                    </div>
+                    <div class="grid grid-cols-4">
+                      <!-- DISTANCE -->
+                      <div class="flex-col gap-1">
+                        <div class="text-xs uppercase text-surface-200 dark:text-surface-500">Distance</div>
+                        <div class="flex gap-1 items-baseline">
+                          <div>{{ (item.distance / 1000).toFixed(2) }}</div>
+                          <div class="text-sm text-orange-700 dark:text-orange-600">Km</div>
+                        </div>
+                      </div>
+                      <!-- TIME -->
+                      <div class="flex-col gap-1">
+                        <div class="text-xs uppercase text-surface-200 dark:text-surface-500">Duration</div>
+                        <div class="flex gap-1 items-baseline">
+                          <div>{{ item.moving_time }}</div>
+                        </div>
+                      </div>
+                      <!-- ELEVTAION -->
+                      <div class="flex-col gap-1">
+                        <div class="text-xs uppercase text-surface-200 dark:text-surface-500">Elevation</div>
+                        <div class="flex gap-1 items-baseline">
+                          <div>{{ Math.round(item.total_elevation_gain) }}</div>
+                          <div class="text-sm text-orange-700 dark:text-orange-600">m</div>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -54,7 +79,11 @@ import DataView from 'primevue/dataview'
 import SelectButton from 'primevue/selectbutton'
 import Select from 'primevue/select'
 
+import { formatActivityDate } from '../utils'
+
 import { useAppStore } from '../stores/app'
+
+import Distance from '../components/Distance.vue'
 
 const appStore = useAppStore()
 

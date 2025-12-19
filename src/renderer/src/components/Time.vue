@@ -18,7 +18,7 @@ const props = defineProps<{
   seconds: number
   label?: string
 }>()
-
+// TODO make a utils
 const hh = computed(() => Math.floor(props.seconds / 3600))
 const mm = computed(() => Math.floor((props.seconds - hh.value * 3600) / 60))
 const ss = computed(() => Math.floor(props.seconds - hh.value * 3600 - mm.value * 60))
