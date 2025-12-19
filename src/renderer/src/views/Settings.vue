@@ -90,7 +90,8 @@
                 name="lastMaintenance"
                 :model-value="initialValues.lastMaintenance"
                 dateFormat="dd/mm/yy"
-                showClear
+                show-clear
+                show-time
                 fluid
               />
               <Message v-if="$form.lastMaintenance?.invalid" severity="error" size="small" variant="simple">
