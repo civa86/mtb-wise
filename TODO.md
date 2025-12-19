@@ -11,5 +11,6 @@
 [ ] UI make a better icon
 [ ] ALL clean console log
 [ ] ALL clean TODO tree
+[ ] ALL change prime vue import in a unique line
 
 [ ] test complete workflow from first settings etc...

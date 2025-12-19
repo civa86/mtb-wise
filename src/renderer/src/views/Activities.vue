@@ -77,13 +77,11 @@ import Card from 'primevue/card'
 import ScrollPanel from 'primevue/scrollpanel'
 import DataView from 'primevue/dataview'
 import SelectButton from 'primevue/selectbutton'
-import Select from 'primevue/select'
+import { Select } from 'primevue'
 
 import { formatActivityDate } from '../utils'
 
 import { useAppStore } from '../stores/app'
-
-import Distance from '../components/Distance.vue'
 
 const appStore = useAppStore()
 
