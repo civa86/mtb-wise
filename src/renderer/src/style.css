@@ -2,7 +2,7 @@
 @import 'tailwindcss-primeui';
 @import 'primeicons/primeicons.css';
 
-:root {
+/* :root {
   --p-progressspinner-color-one: var(--p-orange-600) !important;
   --p-progressspinner-color-two: var(--p-orange-600) !important;
   --p-progressspinner-color-three: var(--p-orange-600) !important;
@@ -15,7 +15,7 @@
 .mtb-wise-dark:root {
   --p-progressbar-label-color: var(--p-orange-700) !important;
   --p-progressbar-value-background: var(--p-zinc-200) !important;
-}
+} */
 
 body,
 html {

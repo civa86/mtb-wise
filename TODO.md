@@ -4,7 +4,7 @@
 [X] SETTINGS show toast with settings save
 [ ] SETTINGS put language selectior + vue i18n
 [ ] SUSPENSIONS implement read of last activity date
-[ ] SUSPENSIONS different colors for progress bar in suspensions
+[X] SUSPENSIONS different colors for progress bar in suspensions
 [ ] ACTIVITIES stiky header
 [ ] ACTIVITIES get activity photos in a popup?
 [ ] UI make a better icon

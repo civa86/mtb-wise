@@ -7,7 +7,13 @@ export const objectToQueryString = (obj: Record<string, unknown>): string => {
 }
 
 export const getActivitiesMinDate = (activities: Array<Activity>): string =>
-  activities.reduce((minDate, activity) => (activity.start_date < minDate ? activity.start_date : minDate), '')
+  activities
+    .map(x => x.start_date)
+    .sort()
+    .shift() as string
 
 export const getActivitiesMaxDate = (activities: Array<Activity>): string =>
-  activities.reduce((maxDate, activity) => (activity.start_date > maxDate ? activity.start_date : maxDate), '')
+  activities
+    .map(x => x.start_date)
+    .sort()
+    .pop() as string
