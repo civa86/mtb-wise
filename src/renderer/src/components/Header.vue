@@ -19,6 +19,14 @@
 
     <template #end>
       <div class="flex items-center gap-2">
+        <Button
+          @click="appStore.fetchData()"
+          icon="pi pi-sync"
+          severity="secondary"
+          variant="text"
+          size="large"
+          rounded
+        />
         <router-link :to="{ name: 'settings' }">
           <Button icon="pi pi-cog" severity="secondary" variant="text" size="large" rounded />
         </router-link>

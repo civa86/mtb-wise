@@ -80,10 +80,9 @@ export const useAppStore = defineStore('app', {
       try {
         this.isFetching = true
         this.activities = await window.api.readActivities()
-        console.log('cached activities', this.activities.length)
         const lastActivityDate = getActivitiesMaxDate(this.activities)
         const after = lastActivityDate ? new Date(lastActivityDate).getTime() / 1000 : undefined
-        await this.fetchActivities(1, after)
+        // await this.fetchActivities(1, after) //TODO uncomment
         await window.api.writeActivities(JSON.parse(JSON.stringify(this.activities)))
         this.isFetching = false
       } catch (e) {

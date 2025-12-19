@@ -35,3 +35,7 @@ html {
 .mtb-wise-dark .p-fieldset-legend {
   @apply text-xs text-orange-600;
 }
+
+.p-menubar-root-list {
+  @apply w-full grow justify-center;
+}

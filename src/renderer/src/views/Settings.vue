@@ -150,10 +150,7 @@ const toast = useToast()
 const themeOptions = ref(['light', 'dark'])
 
 const darkMode = computed({
-  get: () => {
-    console.log('asd')
-    return appStore.darkMode ? 'dark' : 'light'
-  },
+  get: () => (appStore.darkMode ? 'dark' : 'light'),
   set: () => appStore.toggleDarkMode()
 })
 
