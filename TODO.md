@@ -3,7 +3,7 @@
 [X] SETTINGS put dark mode inside
 [X] SETTINGS show toast with settings save
 [ ] SETTINGS put language selectior + vue i18n
-[ ] SUSPENSIONS implement read of last activity date
+[X] SUSPENSIONS implement read of last activity date
 [X] SUSPENSIONS different colors for progress bar in suspensions
 [ ] ACTIVITIES stiky header
 [ ] ACTIVITIES get activity photos in a popup?
