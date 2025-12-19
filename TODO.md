@@ -5,9 +5,11 @@
 [ ] SETTINGS put language selectior + vue i18n
 [X] SUSPENSIONS implement read of last activity date
 [X] SUSPENSIONS different colors for progress bar in suspensions
+[ ] STATS add some speed or other stats?
 [ ] ACTIVITIES stiky header
 [ ] ACTIVITIES get activity photos in a popup?
 [ ] UI make a better icon
 [ ] ALL clean console log
+[ ] ALL clean TODO tree
 
 [ ] test complete workflow from first settings etc...

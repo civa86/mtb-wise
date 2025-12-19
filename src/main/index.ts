@@ -33,8 +33,10 @@ const createWindow = (): void => {
   mainWindow = new BrowserWindow({
     width: APP_WINDOW_WIDTH,
     minWidth: APP_WINDOW_WIDTH,
+    maxWidth: APP_WINDOW_WIDTH,
     height: APP_WINDOW_HEIGHT,
     minHeight: APP_WINDOW_HEIGHT,
+    maxHeight: APP_WINDOW_HEIGHT,
     show: false,
     autoHideMenuBar: true,
     ...(process.platform === 'linux' ? { icon } : {}),

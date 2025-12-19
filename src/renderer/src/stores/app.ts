@@ -11,6 +11,9 @@ type AppState = {
   activities: Array<any>
   error: boolean
   darkMode: RemovableRef<boolean>
+  activitySortDirection: 'asc' | 'desc'
+  activitySortField: string
+  activitySortOptions: Array<{ label: string; value: string }>
 }
 
 const ACTIVITIES_PER_PAGE = 200
@@ -22,7 +25,13 @@ export const useAppStore = defineStore('app', {
     isFetching: false,
     activities: [],
     error: false,
-    darkMode: useLocalStorage('darkMode', false)
+    darkMode: useLocalStorage('darkMode', false),
+    activitySortDirection: 'desc',
+    activitySortField: 'start_date_local',
+    activitySortOptions: [
+      { label: 'Date', value: 'start_date_local' },
+      { label: 'Distance', value: 'distance' }
+    ]
   }),
   getters: {
     isSettingFilled: state =>
@@ -37,7 +46,8 @@ export const useAppStore = defineStore('app', {
     },
     avgElevation: state =>
       state.activities.reduce((acc, activity) => acc + activity.total_elevation_gain, 0) / state.activities.length,
-    maxElevation: state => Math.max(...state.activities.map(x => x.total_elevation_gain))
+    maxElevation: state => Math.max(...state.activities.map(x => x.total_elevation_gain)),
+    selectedActivitySortOption: state => state.activitySortOptions.find(x => x.value === state.activitySortField)
   },
   actions: {
     async readSettings() {
@@ -88,6 +98,13 @@ export const useAppStore = defineStore('app', {
       } catch (e) {
         this.error = true
         this.isFetching = false
+      }
+    },
+    toggleActivitySortDirection() {
+      if (this.activitySortDirection === 'asc') {
+        this.activitySortDirection = 'desc'
+      } else {
+        this.activitySortDirection = 'asc'
       }
     }
   }

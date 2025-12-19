@@ -2,6 +2,8 @@
 @import 'tailwindcss-primeui';
 @import 'primeicons/primeicons.css';
 
+@custom-variant dark (&:where(..mtb-wise-dark, .mtb-wise-dark *));
+
 /* :root {
   --p-progressspinner-color-one: var(--p-orange-600) !important;
   --p-progressspinner-color-two: var(--p-orange-600) !important;

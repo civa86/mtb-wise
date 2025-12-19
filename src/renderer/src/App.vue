@@ -14,13 +14,13 @@
 
   <div
     v-else
-    class="min-h-full p-4"
+    class="min-h-full p-4 flex flex-col"
     :class="{ 'bg-primary-100': !appStore.darkMode, 'bg-primary-700': appStore.darkMode }"
   >
     <div v-if="appStore.error" class="h-full flex flex-col items-center justify-center">
       <GeneralError @reload="appStore.reload()" />
     </div>
-    <div class="h-full" v-else>
+    <div class="grow flex flex-col" v-else>
       <Header class="mb-4" v-if="route.name !== 'settings'" />
       <router-view />
     </div>
