@@ -9,7 +9,6 @@
           :activities="appStore.activities"
           :maintenance-hours="appStore.settings.maintenanceHours"
           :last-maintenance="appStore.settings.lastMaintenance"
-          :dark-mode="appStore.darkMode"
         />
       </template>
     </Card>
@@ -18,17 +17,17 @@
       <template #content>
         <Fieldset legend="SUMMARY">
           <div class="grid grid-cols-3 gap-8">
-            <Time :seconds="appStore.totalTime" :dark-mode="appStore.darkMode" label="Total Time" />
+            <Time :seconds="appStore.totalTime" label="Total Time" />
 
-            <Distance :distance="appStore.totalDistance" :dark-mode="appStore.darkMode" label="Total Kilometers" />
+            <Distance :distance="appStore.totalDistance" label="Total Kilometers" />
 
-            <Elevation :elevation="appStore.maxElevation" :dark-mode="appStore.darkMode" label="Highest +Elevation" />
+            <Elevation :elevation="appStore.maxElevation" label="Highest +Elevation" />
 
-            <Time :seconds="appStore.avgTime" :dark-mode="appStore.darkMode" label="Average Time" />
+            <Time :seconds="appStore.avgTime" label="Average Time" />
 
-            <Distance :distance="appStore.avgDistance" :dark-mode="appStore.darkMode" label="Average Kilometers" />
+            <Distance :distance="appStore.avgDistance" label="Average Kilometers" />
 
-            <Elevation :elevation="appStore.avgElevation" :dark-mode="appStore.darkMode" label="Average +Elevation" />
+            <Elevation :elevation="appStore.avgElevation" label="Average +Elevation" />
           </div>
         </Fieldset>
       </template>

@@ -3,7 +3,7 @@
     <Menubar breakpoint="0px" class="mb-4">
       <template #start>
         <router-link :to="{ name: 'statistics' }" class="mr-4">
-          <Logo class="size-16" :dark-mode="appStore.darkMode" />
+          <Logo class="size-16" />
         </router-link>
       </template>
       <template #end>

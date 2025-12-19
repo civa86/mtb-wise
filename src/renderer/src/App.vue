@@ -1,9 +1,5 @@
 <template>
-  <div
-    v-if="authStore.isAuthorizing"
-    class="h-full p-4"
-    :class="{ 'bg-primary-100': !appStore.darkMode, 'bg-primary-700': appStore.darkMode }"
-  >
+  <div v-if="authStore.isAuthorizing" class="h-full p-4 bg-primary-100 dark:bg-primary-700">
     <div class="h-full flex flex-col items-center justify-center">
       <div class="w-full p-32 text-primary-500 flex flex-col items-center">
         <Loader class="animate-pulse duration-300" />
@@ -12,11 +8,7 @@
     </div>
   </div>
 
-  <div
-    v-else
-    class="min-h-full p-4 flex flex-col"
-    :class="{ 'bg-primary-100': !appStore.darkMode, 'bg-primary-700': appStore.darkMode }"
-  >
+  <div v-else class="min-h-full p-4 flex flex-col bg-primary-100 dark:bg-primary-700">
     <div v-if="appStore.error" class="h-full flex flex-col items-center justify-center">
       <GeneralError @reload="appStore.reload()" />
     </div>

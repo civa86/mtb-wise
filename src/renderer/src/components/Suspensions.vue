@@ -4,10 +4,10 @@
   </div>
   <div class="grid grid-cols-2 gap-4">
     <Fieldset legend="SINCE LAST MAINTENANCE">
-      <Time :seconds="secondsSinceLast" :dark-mode="darkMode" />
+      <Time :seconds="secondsSinceLast" />
     </Fieldset>
     <Fieldset legend="BEFORE NEXT MAINTENANCE">
-      <Time :seconds="secondsBeforeNext" :dark-mode="darkMode" />
+      <Time :seconds="secondsBeforeNext" />
     </Fieldset>
   </div>
 </template>
@@ -23,7 +23,6 @@ const props = defineProps<{
   activities: Array<any>
   maintenanceHours: number
   lastMaintenance: number | null
-  darkMode: boolean
 }>()
 
 const getLastMaintenance = () =>

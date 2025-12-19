@@ -2,9 +2,9 @@
   <div>
     <div class="flex gap-0.5 items-center justify-center text-2xl">
       <div>{{ display(hh) }}</div>
-      <div class="text-sm" :class="separatorClass">:</div>
+      <div class="text-sm text-orange-700 dark:text-orange-600">:</div>
       <div>{{ display(mm) }}</div>
-      <div class="text-sm" :class="separatorClass">:</div>
+      <div class="text-sm text-orange-700 dark:text-orange-600">:</div>
       <div>{{ display(ss) }}</div>
     </div>
     <div v-if="label" class="text-center text-sm uppercase text-primary-500">{{ label }}</div>
@@ -16,11 +16,8 @@ import { computed } from 'vue'
 
 const props = defineProps<{
   seconds: number
-  darkMode: boolean
   label?: string
 }>()
-
-const separatorClass = computed(() => (props.darkMode ? 'text-orange-600' : 'text-orange-700'))
 
 const hh = computed(() => Math.floor(props.seconds / 3600))
 const mm = computed(() => Math.floor((props.seconds - hh.value * 3600) / 60))
