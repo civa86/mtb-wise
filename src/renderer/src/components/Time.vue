@@ -12,16 +12,13 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue'
+import { secondsToHHMMSS } from '../utils'
 
 const props = defineProps<{
   seconds: number
   label?: string
 }>()
-// TODO make a utils
-const hh = computed(() => Math.floor(props.seconds / 3600))
-const mm = computed(() => Math.floor((props.seconds - hh.value * 3600) / 60))
-const ss = computed(() => Math.floor(props.seconds - hh.value * 3600 - mm.value * 60))
 
+const [hh, mm, ss] = secondsToHHMMSS(props.seconds)
 const display = (value: number) => value.toString().padStart(2, '0')
 </script>

@@ -7,7 +7,8 @@
 [X] SUSPENSIONS different colors for progress bar in suspensions
 [ ] STATS add some speed or other stats?
 [ ] ACTIVITIES stiky header
-[ ] ACTIVITIES get activity photos in a popup?
+[ ] ACTIVITIES get activity photos in a popup
+[ ] ACTIVITIES get activity map in a popup
 [ ] UI make a better icon
 [ ] ALL clean console log
 [ ] ALL clean TODO tree

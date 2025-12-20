@@ -36,7 +36,7 @@
                       <div>{{ item.name }}</div>
                       <div class="text-sm dark:text-surface-500">{{ formatActivityDate(item.start_date) }}</div>
                     </div>
-                    <div class="grid grid-cols-4">
+                    <div class="grid grid-cols-5">
                       <!-- DISTANCE -->
                       <div class="flex-col gap-1">
                         <div class="text-xs uppercase text-surface-200 dark:text-surface-500">Distance</div>
@@ -49,7 +49,16 @@
                       <div class="flex-col gap-1">
                         <div class="text-xs uppercase text-surface-200 dark:text-surface-500">Duration</div>
                         <div class="flex gap-1 items-baseline">
-                          <div>{{ item.moving_time }}</div>
+                          <div
+                            v-for="(time, tj) in secondsToHHMMSS(item.moving_time)"
+                            :key="`time-${index}-${tj}`"
+                            class="flex items-center justify-center"
+                          >
+                            <div>{{ time.toString().padStart(2, '0') }}</div>
+                            <div v-if="tj !== 2" class="pl-1 text-sm text-orange-700 dark:text-orange-600 text-center">
+                              :
+                            </div>
+                          </div>
                         </div>
                       </div>
                       <!-- ELEVTAION -->
@@ -58,6 +67,18 @@
                         <div class="flex gap-1 items-baseline">
                           <div>{{ Math.round(item.total_elevation_gain) }}</div>
                           <div class="text-sm text-orange-700 dark:text-orange-600">m</div>
+                        </div>
+                      </div>
+                      <!-- MAX SPEED -->
+                      <div class="flex-col gap-1">
+                        <div class="text-xs uppercase text-surface-200 dark:text-surface-500">Max Speed</div>
+                        <div class="flex gap-1 items-baseline">
+                          <div>{{ msToKmh(item.max_speed).toFixed(1) }}</div>
+                          <div class="flex gap-0.5">
+                            <div class="text-sm text-orange-700 dark:text-orange-600">Km</div>
+                            <div class="text-sm">/</div>
+                            <div class="text-sm text-orange-700 dark:text-orange-600">h</div>
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -73,13 +94,14 @@
 </template>
 <script lang="ts" setup>
 import { onBeforeUnmount, onMounted, ref, computed } from 'vue'
+
 import Card from 'primevue/card'
 import ScrollPanel from 'primevue/scrollpanel'
 import DataView from 'primevue/dataview'
 import SelectButton from 'primevue/selectbutton'
 import { Select } from 'primevue'
 
-import { formatActivityDate } from '../utils'
+import { formatActivityDate, secondsToHHMMSS, msToKmh } from '../utils'
 
 import { useAppStore } from '../stores/app'
 
@@ -94,6 +116,8 @@ const sortField = computed({
   get: () => appStore.selectedActivitySortOption,
   set: (evt: { label: string; value: string }) => (appStore.activitySortField = evt.value)
 })
+
+// const displayTime = (seconds: number) => {}
 
 const calculateAvailableHeigth = () => {
   const elem = document.querySelector('#activities-container') as HTMLElement

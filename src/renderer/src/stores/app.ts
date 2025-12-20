@@ -30,7 +30,10 @@ export const useAppStore = defineStore('app', {
     activitySortField: 'start_date_local',
     activitySortOptions: [
       { label: 'Date', value: 'start_date_local' },
-      { label: 'Distance', value: 'distance' }
+      { label: 'Distance', value: 'distance' },
+      { label: 'Duration', value: 'moving_time' },
+      { label: 'Elevation', value: 'total_elevation_gain' },
+      { label: 'Speed', value: 'max_speed' }
     ]
   }),
   getters: {

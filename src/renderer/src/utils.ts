@@ -18,6 +18,13 @@ export const getActivitiesMaxDate = (activities: Array<Activity>): string =>
     .sort()
     .pop() as string
 
+export const secondsToHHMMSS = (seconds: number): Array<number> => {
+  const hh = Math.floor(seconds / 3600)
+  const mm = Math.floor((seconds - hh * 3600) / 60)
+  const ss = Math.floor(seconds - hh * 3600 - mm * 60)
+  return [hh, mm, ss]
+}
+
 export const formatActivityDate = (date: string): string => {
   const d = new Date(date)
   return d.toLocaleString('it-IT', {
@@ -28,3 +35,5 @@ export const formatActivityDate = (date: string): string => {
     minute: '2-digit'
   })
 }
+
+export const msToKmh = (ms: number): number => ms * 3.6

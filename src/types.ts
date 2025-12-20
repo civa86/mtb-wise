@@ -26,6 +26,7 @@ export type Activity = {
   distance: number
   moving_time: number
   elapsed_time: number
+  achievement_count: number
   total_elevation_gain: number
   type: string
   sport_type: string
