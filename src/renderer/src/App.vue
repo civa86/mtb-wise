@@ -24,8 +24,7 @@
 </template>
 <script lang="ts" setup>
 import { useRoute } from 'vue-router'
-import ProgressSpinner from 'primevue/progressspinner'
-import Toast from 'primevue/toast'
+import { ProgressSpinner, Toast } from 'primevue'
 
 import { useAuthStore } from './stores/auth'
 import { useAppStore } from './stores/app'

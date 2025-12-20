@@ -3,15 +3,18 @@
 [X] SETTINGS put dark mode inside
 [X] SETTINGS show toast with settings save
 [ ] SETTINGS put language selectior + vue i18n
+[ ] SETTINGS change title + border bottom with FieldSet
 [X] SUSPENSIONS implement read of last activity date
 [X] SUSPENSIONS different colors for progress bar in suspensions
-[ ] STATS add some speed or other stats?
-[ ] ACTIVITIES stiky header
+[X] ACTIVITIES stiky header
+[ ] ACTIVITIES add search field
+[ ] ACTIVITIES change select for sort with a selectButton
 [ ] ACTIVITIES get activity photos in a popup
 [ ] ACTIVITIES get activity map in a popup
 [ ] UI make a better icon
 [ ] ALL clean console log
 [ ] ALL clean TODO tree
-[ ] ALL change prime vue import in a unique line
+[X] ALL change prime vue import in a unique line
+[ ] Uniform all input with comments
 
 [ ] test complete workflow from first settings etc...

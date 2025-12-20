@@ -4,21 +4,6 @@
 
 @custom-variant dark (&:where(..mtb-wise-dark, .mtb-wise-dark *));
 
-/* :root {
-  --p-progressspinner-color-one: var(--p-orange-600) !important;
-  --p-progressspinner-color-two: var(--p-orange-600) !important;
-  --p-progressspinner-color-three: var(--p-orange-600) !important;
-  --p-progressspinner-color-four: var(--p-orange-600) !important;
-
-  --p-progressbar-label-color: var(--p-orange-400) !important;
-  --p-progressbar-value-background: var(--p-zinc-700) !important;
-}
-
-.mtb-wise-dark:root {
-  --p-progressbar-label-color: var(--p-orange-700) !important;
-  --p-progressbar-value-background: var(--p-zinc-200) !important;
-} */
-
 body,
 html {
   margin: 0;

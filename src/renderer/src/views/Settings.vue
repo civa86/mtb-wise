@@ -127,16 +127,7 @@ import { useRouter } from 'vue-router'
 
 import { Form } from '@primevue/forms'
 import { useToast } from 'primevue/usetoast'
-
-import Menubar from 'primevue/menubar'
-import Card from 'primevue/card'
-import InputText from 'primevue/inputtext'
-import Password from 'primevue/password'
-import InputNumber from 'primevue/inputnumber'
-import DatePicker from 'primevue/datepicker'
-import Message from 'primevue/message'
-import Button from 'primevue/button'
-import SelectButton from 'primevue/selectbutton'
+import { Menubar, Card, InputText, Password, InputNumber, DatePicker, Message, Button, SelectButton } from 'primevue'
 
 import { ApplicationSetting } from '../../../types'
 

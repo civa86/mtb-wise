@@ -95,11 +95,7 @@
 <script lang="ts" setup>
 import { onBeforeUnmount, onMounted, ref, computed } from 'vue'
 
-import Card from 'primevue/card'
-import ScrollPanel from 'primevue/scrollpanel'
-import DataView from 'primevue/dataview'
-import SelectButton from 'primevue/selectbutton'
-import { Select } from 'primevue'
+import { Card, ScrollPanel, DataView, Select, SelectButton } from 'primevue'
 
 import { formatActivityDate, secondsToHHMMSS, msToKmh } from '../utils'
 

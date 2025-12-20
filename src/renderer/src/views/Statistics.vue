@@ -16,7 +16,7 @@
     <Card>
       <template #content>
         <Fieldset legend="SUMMARY">
-          <div class="grid grid-cols-3 gap-8">
+          <div class="pt-3 grid grid-cols-3 gap-8">
             <Time :seconds="appStore.totalTime" label="Total Time" />
 
             <Distance :distance="appStore.totalDistance" label="Total Kilometers" />
@@ -35,8 +35,7 @@
   </div>
 </template>
 <script lang="ts" setup>
-import Card from 'primevue/card'
-import Fieldset from 'primevue/fieldset'
+import { Card, Fieldset } from 'primevue'
 
 import { useAppStore } from '../stores/app'
 

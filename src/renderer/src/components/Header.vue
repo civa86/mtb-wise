@@ -38,8 +38,7 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { useRoute } from 'vue-router'
-import Menubar from 'primevue/menubar'
-import Button from 'primevue/button'
+import { Menubar, Button } from 'primevue'
 
 import { useAppStore } from '../stores/app'
 

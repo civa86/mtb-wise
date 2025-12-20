@@ -11,8 +11,7 @@
 </template>
 
 <script setup lang="ts">
-import Message from 'primevue/message'
-import Button from 'primevue/button'
+import { Message, Button } from 'primevue'
 
 const emit = defineEmits(['reload'])
 </script>

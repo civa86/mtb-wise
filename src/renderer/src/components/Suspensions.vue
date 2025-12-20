@@ -2,7 +2,7 @@
   <div>
     <ProgressBar :status="usageStatus" :value="usagePercentage"></ProgressBar>
   </div>
-  <div class="grid grid-cols-2 gap-4">
+  <div class="grid grid-cols-2 gap-8">
     <Fieldset legend="SINCE LAST MAINTENANCE">
       <Time :seconds="secondsSinceLast" />
     </Fieldset>
@@ -14,8 +14,7 @@
 
 <script setup lang="ts">
 import { computed } from 'vue'
-import ProgressBar from 'primevue/progressbar'
-import Fieldset from 'primevue/fieldset'
+import { ProgressBar, Fieldset } from 'primevue'
 import { getActivitiesMinDate } from '../utils'
 import Time from '../components/Time.vue'
 
