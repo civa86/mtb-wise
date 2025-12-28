@@ -22,7 +22,11 @@
                     </div>
                   </template>
                 </SelectButton>
-                <Select v-model="sortField" :options="appStore.activitySortOptions" optionLabel="label" />
+                <SelectButton v-model="sortField" :options="appStore.activitySortOptions.map(x => x.label)">
+                  <template #option="{ option }">
+                    <div class="uppercase text-xs">{{ option }}</div>
+                  </template>
+                </SelectButton>
               </div>
             </template>
             <template #list="slotProps">
@@ -95,7 +99,7 @@
 <script lang="ts" setup>
 import { onBeforeUnmount, onMounted, ref, computed } from 'vue'
 
-import { Card, ScrollPanel, DataView, Select, SelectButton } from 'primevue'
+import { Card, ScrollPanel, DataView, SelectButton } from 'primevue'
 
 import { formatActivityDate, secondsToHHMMSS, msToKmh } from '../utils'
 
@@ -109,8 +113,8 @@ const sortDirection = computed({
   set: () => appStore.toggleActivitySortDirection()
 })
 const sortField = computed({
-  get: () => appStore.selectedActivitySortOption,
-  set: (evt: { label: string; value: string }) => (appStore.activitySortField = evt.value)
+  get: () => appStore.selectedActivitySortOption?.label,
+  set: evt => appStore.setActivitySortOption(evt || '')
 })
 
 // const displayTime = (seconds: number) => {}

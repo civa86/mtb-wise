@@ -109,6 +109,12 @@ export const useAppStore = defineStore('app', {
       } else {
         this.activitySortDirection = 'asc'
       }
+    },
+    setActivitySortOption(label: string) {
+      const option = this.activitySortOptions.find(x => x.label === label)
+      if (option) {
+        this.activitySortField = option.value
+      }
     }
   }
 })

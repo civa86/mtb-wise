@@ -8,7 +8,7 @@
 [X] SUSPENSIONS different colors for progress bar in suspensions
 [X] ACTIVITIES stiky header
 [ ] ACTIVITIES add search field
-[ ] ACTIVITIES change select for sort with a selectButton
+[X] ACTIVITIES change select for sort with a selectButton
 [ ] ACTIVITIES get activity photos in a popup
 [ ] ACTIVITIES get activity map in a popup
 [ ] UI make a better icon
