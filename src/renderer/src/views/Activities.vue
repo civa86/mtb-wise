@@ -4,29 +4,40 @@
       <template #content>
         <ScrollPanel :style="{ height: `${fullHeight}px` }">
           <DataView
-            :value="appStore.activities"
+            :value="activities"
             :sortOrder="appStore.activitySortDirection === 'desc' ? -1 : 1"
             :sortField="appStore.activitySortField"
           >
             <template #header>
-              <div class="flex gap-2">
-                <SelectButton v-model="sortDirection" :options="['desc', 'asc']">
-                  <template #option="{ option }">
-                    <div class="flex gap-2 items-center">
-                      <i
-                        :class="{
-                          'pi pi-sort-amount-up-alt': option === 'asc',
-                          'pi pi-sort-amount-down': option === 'desc'
-                        }"
-                      />
-                    </div>
-                  </template>
-                </SelectButton>
-                <SelectButton v-model="sortField" :options="appStore.activitySortOptions.map(x => x.label)">
-                  <template #option="{ option }">
-                    <div class="uppercase text-xs">{{ option }}</div>
-                  </template>
-                </SelectButton>
+              <div class="flex justify-between items-center">
+                <!-- SORTING -->
+                <div class="flex gap-2">
+                  <SelectButton v-model="sortDirection" :options="['desc', 'asc']">
+                    <template #option="{ option }">
+                      <div class="flex gap-2 items-center">
+                        <i
+                          :class="{
+                            'pi pi-sort-amount-up-alt': option === 'asc',
+                            'pi pi-sort-amount-down': option === 'desc'
+                          }"
+                        />
+                      </div>
+                    </template>
+                  </SelectButton>
+                  <SelectButton v-model="sortField" :options="appStore.activitySortOptions.map(x => x.label)">
+                    <template #option="{ option }">
+                      <div class="uppercase text-xs">{{ option }}</div>
+                    </template>
+                  </SelectButton>
+                </div>
+                <!-- SEARCH -->
+                <div class="pl-12">
+                  <IconField>
+                    <InputIcon class="pi pi-search" />
+                    <InputText placeholder="Search" size="small" fluid v-model="search" />
+                    <InputIcon v-if="search !== ''" class="pi pi-times cursor-pointer" @click="search = ''" />
+                  </IconField>
+                </div>
               </div>
             </template>
             <template #list="slotProps">
@@ -99,7 +110,7 @@
 <script lang="ts" setup>
 import { onBeforeUnmount, onMounted, ref, computed } from 'vue'
 
-import { Card, ScrollPanel, DataView, SelectButton } from 'primevue'
+import { Card, ScrollPanel, DataView, SelectButton, IconField, InputIcon, InputText } from 'primevue'
 
 import { formatActivityDate, secondsToHHMMSS, msToKmh } from '../utils'
 
@@ -108,16 +119,21 @@ import { useAppStore } from '../stores/app'
 const appStore = useAppStore()
 
 const fullHeight = ref(0)
+const search = ref('')
+
 const sortDirection = computed({
   get: () => (appStore.activitySortDirection ? appStore.activitySortDirection : 'desc'),
   set: () => appStore.toggleActivitySortDirection()
 })
+
 const sortField = computed({
   get: () => appStore.selectedActivitySortOption?.label,
   set: evt => appStore.setActivitySortOption(evt || '')
 })
 
-// const displayTime = (seconds: number) => {}
+const activities = computed(() =>
+  appStore.activities.filter(x => search.value === '' || x.name.toLowerCase().includes(search.value.toLowerCase()))
+)
 
 const calculateAvailableHeigth = () => {
   const elem = document.querySelector('#activities-container') as HTMLElement

@@ -3,6 +3,7 @@ import { createApp } from 'vue'
 import { createPinia } from 'pinia'
 import PrimeVue from 'primevue/config'
 import ToastService from 'primevue/toastservice'
+import KeyFilter from 'primevue/keyfilter'
 import { definePreset } from '@primeuix/themes'
 import Aura from '@primeuix/themes/aura'
 
@@ -50,6 +51,7 @@ useAppStore(pinia)
   .boot()
   .then(() => {
     const app = createApp(App)
+
     app.use(pinia)
     app.use(router)
     app.use(PrimeVue, {
@@ -61,5 +63,6 @@ useAppStore(pinia)
       }
     })
     app.use(ToastService)
+    app.directive('keyfilter', KeyFilter)
     app.mount('#app')
   })

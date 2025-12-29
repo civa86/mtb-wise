@@ -26,3 +26,7 @@ html {
 .p-menubar-root-list {
   @apply w-full grow justify-center;
 }
+
+.p-dataview-empty-message {
+  @apply px-6 mt-8;
+}

@@ -102,6 +102,7 @@
             <div>
               <label class="uppercase text-sm">Maintenance Hours</label>
               <InputNumber
+                v-keyfilter.int
                 name="maintenanceHours"
                 :model-value="initialValues.maintenanceHours"
                 inputId="integeronly"
