@@ -7,7 +7,7 @@
 [X] SUSPENSIONS implement read of last activity date
 [X] SUSPENSIONS different colors for progress bar in suspensions
 [X] ACTIVITIES stiky header
-[ ] ACTIVITIES add search field
+[X] ACTIVITIES add search field
 [X] ACTIVITIES change select for sort with a selectButton
 [ ] ACTIVITIES get activity photos in a popup
 [ ] ACTIVITIES get activity map in a popup
@@ -15,6 +15,6 @@
 [ ] ALL clean console log
 [ ] ALL clean TODO tree
 [X] ALL change prime vue import in a unique line
-[ ] Uniform all input with comments
-
+[ ] Uniform all import with comments
 [ ] test complete workflow from first settings etc...
+[ ] Github Action for build mac/win

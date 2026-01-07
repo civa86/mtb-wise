@@ -95,7 +95,7 @@ export const useAppStore = defineStore('app', {
         this.activities = await window.api.readActivities()
         const lastActivityDate = getActivitiesMaxDate(this.activities)
         const after = lastActivityDate ? new Date(lastActivityDate).getTime() / 1000 : undefined
-        // await this.fetchActivities(1, after) //TODO uncomment
+        await this.fetchActivities(1, after)
         await window.api.writeActivities(JSON.parse(JSON.stringify(this.activities)))
         this.isFetching = false
       } catch (e) {

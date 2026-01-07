@@ -34,6 +34,14 @@ $ yarn build:linux
 open ~/Library/Application\ Support/mtb-wise
 ```
 
+## App Icon
+
+Design icon with 1024x1024 resolution and save it: `resources/icon.png`
+
+Run `./icon-make.sh` script
+
+The script requires [ImageMagik](https://imagemagick.org/)
+
 ## Strava
 
 Getting Started: https://developers.strava.com/docs/getting-started/
