@@ -41,7 +41,7 @@ export const fetchActivities = async (page: number, perPage: number, after?: num
     return data
   } catch (e) {
     const error = e as AxiosError
-    if (error.response && error.response.status === 401) throw new Error('AUTH_ERROR') //TODO check with a expired token...
+    if (error.response && error.response.status === 401) throw new Error('AUTH_ERROR')
     const message = error.message || 'ERROR_GENERIC'
     throw new Error(message)
   }

@@ -4,7 +4,7 @@
 [X] SETTINGS put dark mode inside
 [X] SETTINGS show toast with settings save
 [ ] SETTINGS put language selectior + vue i18n
-[ ] SETTINGS change title + border bottom with FieldSet
+[X] SETTINGS change title + border bottom with FieldSet
 [X] SUSPENSIONS implement read of last activity date
 [X] SUSPENSIONS different colors for progress bar in suspensions
 [X] ACTIVITIES stiky header
@@ -13,8 +13,8 @@
 [ ] ACTIVITIES get activity photos in a popup
 [ ] ACTIVITIES get activity map in a popup
 [X] UI make a better icon
-[ ] ALL clean TODO tree
 [X] ALL change prime vue import in a unique line
-[ ] ALL clean console log
+[ ] ALL search and clean console.log / TODO
 [ ] test complete workflow from first settings etc...
+[ ] Github Repo
 [ ] Github Action for build mac/win
