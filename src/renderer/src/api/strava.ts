@@ -1,7 +1,10 @@
 import { AxiosError } from 'axios'
-import { StravaTokenResponse } from '../../../types'
-import { objectToQueryString } from '../utils'
-import { ApiClient } from './client'
+// TYPES
+import { StravaTokenResponse } from 'src/types'
+// UTILS
+import { objectToQueryString } from '@renderer/utils'
+// API
+import { ApiClient } from '@renderer/api/client'
 
 const API_BASE_URL = 'https://www.strava.com'
 

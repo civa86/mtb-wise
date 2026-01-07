@@ -1,5 +1,5 @@
 import axios, { AxiosInstance } from 'axios'
-import { useAuthStore } from '../stores/auth'
+import { useAuthStore } from '@renderer/stores/auth'
 
 export const ApiClient = async (baseURL: string, authenticated = false): Promise<AxiosInstance> => {
   if (authenticated === true) {

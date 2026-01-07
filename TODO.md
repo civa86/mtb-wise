@@ -1,5 +1,6 @@
 [X] GENERAL create a type for activities
 [X] GENERAL cache activities on disk and call only after the max date saved
+[X] GENERAL Uniform all import with comments
 [X] SETTINGS put dark mode inside
 [X] SETTINGS show toast with settings save
 [ ] SETTINGS put language selectior + vue i18n
@@ -11,10 +12,9 @@
 [X] ACTIVITIES change select for sort with a selectButton
 [ ] ACTIVITIES get activity photos in a popup
 [ ] ACTIVITIES get activity map in a popup
-[ ] UI make a better icon
-[ ] ALL clean console log
+[X] UI make a better icon
 [ ] ALL clean TODO tree
 [X] ALL change prime vue import in a unique line
-[ ] Uniform all import with comments
+[ ] ALL clean console log
 [ ] test complete workflow from first settings etc...
 [ ] Github Action for build mac/win

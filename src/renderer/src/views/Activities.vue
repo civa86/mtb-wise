@@ -109,12 +109,11 @@
 </template>
 <script lang="ts" setup>
 import { onBeforeUnmount, onMounted, ref, computed } from 'vue'
-
 import { Card, ScrollPanel, DataView, SelectButton, IconField, InputIcon, InputText } from 'primevue'
-
-import { formatActivityDate, secondsToHHMMSS, msToKmh } from '../utils'
-
-import { useAppStore } from '../stores/app'
+// UTILS
+import { formatActivityDate, secondsToHHMMSS, msToKmh } from '@renderer/utils'
+// STORES
+import { useAppStore } from '@renderer/stores/app'
 
 const appStore = useAppStore()
 

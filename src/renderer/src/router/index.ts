@@ -5,8 +5,9 @@ import {
   NavigationGuardNext,
   createWebHashHistory
 } from 'vue-router'
-import { useAppStore } from '../stores/app'
-import { useAuthStore } from '../stores/auth'
+// STORES
+import { useAppStore } from '@renderer/stores/app'
+import { useAuthStore } from '@renderer/stores/auth'
 
 const init = async (to: RouteLocationNormalized, _from: RouteLocationNormalized, next: NavigationGuardNext) => {
   const appStore = useAppStore()

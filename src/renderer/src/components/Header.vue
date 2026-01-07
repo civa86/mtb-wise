@@ -39,10 +39,10 @@
 import { ref } from 'vue'
 import { useRoute } from 'vue-router'
 import { Menubar, Button } from 'primevue'
-
-import { useAppStore } from '../stores/app'
-
-import Logo from '../components/Logo.vue'
+// STORES
+import { useAppStore } from '@renderer/stores/app'
+// COMPONENTS
+import Logo from '@renderer/components/Logo.vue'
 
 const route = useRoute()
 

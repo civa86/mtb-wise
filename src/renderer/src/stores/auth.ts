@@ -1,7 +1,10 @@
 import { defineStore } from 'pinia'
-import { ApplicationSetting, AuthData, StravaTokenResponse } from '../../../types'
-import { getAuthorizationURL, getToken, refreshToken } from '../api/strava'
-import { useAppStore } from './app'
+// TYPES
+import { ApplicationSetting, AuthData, StravaTokenResponse } from 'src/types'
+// API
+import { getAuthorizationURL, getToken, refreshToken } from '@renderer/api/strava'
+// STORES
+import { useAppStore } from '@renderer/stores/app'
 
 type AuthState = {
   authData: AuthData | null

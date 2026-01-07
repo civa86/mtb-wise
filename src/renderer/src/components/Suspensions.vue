@@ -15,8 +15,10 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 import { ProgressBar, Fieldset } from 'primevue'
-import { getActivitiesMinDate } from '../utils'
-import Time from '../components/Time.vue'
+// UTILS
+import { getActivitiesMinDate } from '@renderer/utils'
+// COMPONENTS
+import Time from '@renderer/components/Time.vue'
 
 const props = defineProps<{
   activities: Array<any>

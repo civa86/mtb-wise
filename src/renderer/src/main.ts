@@ -1,15 +1,17 @@
 import './style.css'
+
 import { createApp } from 'vue'
 import { createPinia } from 'pinia'
+
 import PrimeVue from 'primevue/config'
 import ToastService from 'primevue/toastservice'
 import KeyFilter from 'primevue/keyfilter'
 import { definePreset } from '@primeuix/themes'
 import Aura from '@primeuix/themes/aura'
 
-import { useAppStore } from './stores/app'
-import router from './router'
-import App from './App.vue'
+import { useAppStore } from '@renderer/stores/app'
+import router from '@renderer/router'
+import App from '@renderer/App.vue'
 
 const Noir = definePreset(Aura, {
   semantic: {

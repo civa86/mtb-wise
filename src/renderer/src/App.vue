@@ -25,13 +25,13 @@
 <script lang="ts" setup>
 import { useRoute } from 'vue-router'
 import { ProgressSpinner, Toast } from 'primevue'
-
-import { useAuthStore } from './stores/auth'
-import { useAppStore } from './stores/app'
-
-import Loader from './components/Loader.vue'
-import GeneralError from './components/GeneralError.vue'
-import Header from './components/Header.vue'
+// STORES
+import { useAuthStore } from '@renderer/stores/auth'
+import { useAppStore } from '@renderer/stores/app'
+// COMPONENTS
+import Loader from '@renderer/components/Loader.vue'
+import GeneralError from '@renderer/components/GeneralError.vue'
+import Header from '@renderer/components/Header.vue'
 
 const authStore = useAuthStore()
 const appStore = useAppStore()

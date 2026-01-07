@@ -12,7 +12,8 @@
 </template>
 
 <script setup lang="ts">
-import { secondsToHHMMSS } from '../utils'
+// UTILS
+import { secondsToHHMMSS } from '@renderer/utils'
 
 const props = defineProps<{
   seconds: number

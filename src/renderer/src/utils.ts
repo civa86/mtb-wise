@@ -1,4 +1,5 @@
-import { Activity } from '../../types'
+// TYPES
+import { Activity } from 'src/types'
 
 export const objectToQueryString = (obj: Record<string, unknown>): string => {
   return Object.entries(obj)

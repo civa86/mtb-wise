@@ -2,7 +2,8 @@
   <router-view />
 </template>
 <script lang="ts" setup>
-import { useAppStore } from '../stores/app'
+// STORES
+import { useAppStore } from '@renderer/stores/app'
 
 const appStore = useAppStore()
 

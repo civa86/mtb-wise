@@ -1,9 +1,13 @@
 import { defineStore } from 'pinia'
 import { RemovableRef, useLocalStorage } from '@vueuse/core'
-import { ApplicationSetting } from '../../../types'
-import { getActivitiesMaxDate } from '../utils'
-import { useAuthStore } from './auth'
-import { fetchActivities } from '../api/strava'
+// TYPES
+import { ApplicationSetting } from 'src/types'
+// UTILS
+import { getActivitiesMaxDate } from '@renderer/utils'
+// API
+import { fetchActivities } from '@renderer/api/strava'
+// STORES
+import { useAuthStore } from '@renderer/stores/auth'
 
 type AppState = {
   settings: ApplicationSetting | null

@@ -36,13 +36,13 @@
 </template>
 <script lang="ts" setup>
 import { Card, Fieldset } from 'primevue'
-
-import { useAppStore } from '../stores/app'
-
-import Time from '../components/Time.vue'
-import Distance from '../components/Distance.vue'
-import Elevation from '../components/Elevation.vue'
-import Suspensions from '../components/Suspensions.vue'
+// STORES
+import { useAppStore } from '@renderer/stores/app'
+// COMPONENTS
+import Time from '@renderer/components/Time.vue'
+import Distance from '@renderer/components/Distance.vue'
+import Elevation from '@renderer/components/Elevation.vue'
+import Suspensions from '@renderer/components/Suspensions.vue'
 
 const appStore = useAppStore()
 </script>

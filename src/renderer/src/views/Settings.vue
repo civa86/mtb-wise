@@ -125,15 +125,15 @@
 <script lang="ts" setup>
 import { computed, ref } from 'vue'
 import { useRouter } from 'vue-router'
-
 import { Form } from '@primevue/forms'
 import { useToast } from 'primevue/usetoast'
 import { Menubar, Card, InputText, Password, InputNumber, DatePicker, Message, Button, SelectButton } from 'primevue'
-
-import { ApplicationSetting } from '../../../types'
-
-import { useAppStore } from '../stores/app'
-import Logo from '../components/Logo.vue'
+// TYPES
+import { ApplicationSetting } from 'src/types'
+// STORES
+import { useAppStore } from '@renderer/stores/app'
+// COMPONENTS
+import Logo from '@renderer/components/Logo.vue'
 
 const router = useRouter()
 const appStore = useAppStore()
