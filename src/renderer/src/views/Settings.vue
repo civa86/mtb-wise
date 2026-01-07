@@ -20,102 +20,95 @@
         </div>
       </template>
     </Menubar>
-    <div class="flex flex-col gap-4 w-full">
+    <div class="grid grid-cols-3 gap-4">
+      <!-- APPLICATION -->
       <Card class="w-full">
-        <template #subtitle>
-          <div class="flex items-center gap-2 border-b border-orange-600 pb-1">
-            <span>APPLICATION</span>
-          </div>
-        </template>
         <template #content>
-          <div class="flex gap-2 items-center">
-            <label class="uppercase text-sm">Theme</label>
-            <SelectButton :options="themeOptions" v-model="darkMode">
-              <template #option="{ option }">
-                <div class="flex gap-2 items-center">
-                  <i :class="{ 'pi pi-sun': option === 'light', 'pi pi-moon': option === 'dark' }" />
-                  <span class="uppercase text-sm">{{ option }}</span>
-                </div>
-              </template>
-            </SelectButton>
-          </div>
+          <Fieldset legend="APPLICATION">
+            <div>
+              <label class="uppercase text-sm">Theme</label>
+              <SelectButton :options="themeOptions" v-model="darkMode">
+                <template #option="{ option }">
+                  <div class="flex gap-2 items-center">
+                    <i :class="{ 'pi pi-sun': option === 'light', 'pi pi-moon': option === 'dark' }" />
+                    <span class="uppercase text-sm">{{ option }}</span>
+                  </div>
+                </template>
+              </SelectButton>
+            </div>
+          </Fieldset>
         </template>
       </Card>
-
-      <Card class="w-full">
-        <template #subtitle>
-          <div class="flex items-center gap-2 border-b border-orange-600 pb-1">
-            <span>STRAVA</span>
-          </div>
-        </template>
+      <!-- STRAVA -->
+      <Card class="w-full col-span-2">
         <template #content>
-          <div class="grid grid-cols-4 gap-4">
-            <!-- STRAVA CLIENT ID -->
-            <div>
-              <label class="uppercase text-sm">Client ID</label>
-              <InputText name="stravaClientId" :model-value="initialValues.stravaClientId" type="text" fluid />
-              <Message v-if="$form.stravaClientId?.invalid" severity="error" size="small" variant="simple">
-                {{ $form.stravaClientId.error?.message }}
-              </Message>
+          <Fieldset legend="STRAVA">
+            <div class="flex flex-col gap-2">
+              <!-- STRAVA CLIENT ID -->
+              <div>
+                <label class="uppercase text-sm">Client ID</label>
+                <InputText name="stravaClientId" :model-value="initialValues.stravaClientId" type="text" fluid />
+                <Message v-if="$form.stravaClientId?.invalid" severity="error" size="small" variant="simple">
+                  {{ $form.stravaClientId.error?.message }}
+                </Message>
+              </div>
+              <!-- STRAVA CLIENT SECRET -->
+              <div>
+                <label class="uppercase text-sm">Strava Client Secret</label>
+                <Password
+                  name="stravaClientSecret"
+                  :model-value="initialValues.stravaClientSecret"
+                  toggleMask
+                  fluid
+                  :feedback="false"
+                />
+                <Message v-if="$form.stravaClientSecret?.invalid" severity="error" size="small" variant="simple">
+                  {{ $form.stravaClientSecret.error?.message }}
+                </Message>
+              </div>
             </div>
-            <!-- STRAVA CLIENT SECRET -->
-            <div class="col-span-3">
-              <label class="uppercase text-sm">Strava Client Secret</label>
-              <Password
-                name="stravaClientSecret"
-                :model-value="initialValues.stravaClientSecret"
-                toggleMask
-                fluid
-                :feedback="false"
-              />
-              <Message v-if="$form.stravaClientSecret?.invalid" severity="error" size="small" variant="simple">
-                {{ $form.stravaClientSecret.error?.message }}
-              </Message>
-            </div>
-          </div>
+          </Fieldset>
         </template>
       </Card>
-      <Card class="w-full">
-        <template #subtitle>
-          <div class="flex items-center gap-2 border-b border-orange-600 pb-1">
-            <span>BIKE MAINTENANCE</span>
-          </div>
-        </template>
+      <!-- BIKE MAINTENANCE -->
+      <Card class="w-full col-span-3">
         <template #content>
-          <div class="grid grid-cols-2 gap-4">
-            <!-- LAST MAINTENANCE DATE -->
-            <div>
-              <label class="uppercase text-sm">Last Maintenance Date</label>
-              <DatePicker
-                name="lastMaintenance"
-                :model-value="initialValues.lastMaintenance"
-                dateFormat="dd/mm/yy"
-                show-clear
-                show-time
-                fluid
-              />
-              <Message v-if="$form.lastMaintenance?.invalid" severity="error" size="small" variant="simple">
-                {{ $form.lastMaintenance.error?.message }}
-              </Message>
+          <Fieldset legend="BIKE MAINTENANCE">
+            <div class="grid grid-cols-2 gap-4">
+              <!-- LAST MAINTENANCE DATE -->
+              <div>
+                <label class="uppercase text-sm">Last Maintenance Date</label>
+                <DatePicker
+                  name="lastMaintenance"
+                  :model-value="initialValues.lastMaintenance"
+                  dateFormat="dd/mm/yy"
+                  show-clear
+                  show-time
+                  fluid
+                />
+                <Message v-if="$form.lastMaintenance?.invalid" severity="error" size="small" variant="simple">
+                  {{ $form.lastMaintenance.error?.message }}
+                </Message>
+              </div>
+              <!-- MAINTENANCE HOURS -->
+              <div>
+                <label class="uppercase text-sm">Maintenance Hours</label>
+                <InputNumber
+                  v-keyfilter.int
+                  name="maintenanceHours"
+                  :model-value="initialValues.maintenanceHours"
+                  inputId="integeronly"
+                  :useGrouping="false"
+                  :min="1"
+                  :max="999"
+                  fluid
+                />
+                <Message v-if="$form.maintenanceHours?.invalid" severity="error" size="small" variant="simple">
+                  {{ $form.maintenanceHours.error?.message }}
+                </Message>
+              </div>
             </div>
-            <!-- MAINTENANCE HOURS -->
-            <div>
-              <label class="uppercase text-sm">Maintenance Hours</label>
-              <InputNumber
-                v-keyfilter.int
-                name="maintenanceHours"
-                :model-value="initialValues.maintenanceHours"
-                inputId="integeronly"
-                :useGrouping="false"
-                :min="1"
-                :max="999"
-                fluid
-              />
-              <Message v-if="$form.maintenanceHours?.invalid" severity="error" size="small" variant="simple">
-                {{ $form.maintenanceHours.error?.message }}
-              </Message>
-            </div>
-          </div>
+          </Fieldset>
         </template>
       </Card>
     </div>
@@ -127,7 +120,18 @@ import { computed, ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { Form } from '@primevue/forms'
 import { useToast } from 'primevue/usetoast'
-import { Menubar, Card, InputText, Password, InputNumber, DatePicker, Message, Button, SelectButton } from 'primevue'
+import {
+  Menubar,
+  Card,
+  InputText,
+  Password,
+  InputNumber,
+  DatePicker,
+  Message,
+  Button,
+  SelectButton,
+  Fieldset
+} from 'primevue'
 // TYPES
 import { ApplicationSetting } from 'src/types'
 // STORES
