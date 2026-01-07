@@ -185,6 +185,7 @@ const onFormSubmit = async ({ states, errors }) => {
       await appStore.readSettings()
 
       toast.add({ severity: 'success', summary: 'Done', detail: 'Settings saved successfully', life: 3000 })
+      await appStore.fetchData()
       gotoHome()
     } catch (e) {
       toast.add({ severity: 'error', summary: 'Error', detail: 'Settings could not be saved', life: 3000 })

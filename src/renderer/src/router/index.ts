@@ -42,13 +42,13 @@ const routes: Array<RouteRecordRaw> = [
         name: 'activities',
         path: 'activities',
         component: () => import('../views/Activities.vue')
+      },
+      {
+        name: 'settings',
+        path: 'settings',
+        component: () => import('../views/Settings.vue')
       }
     ]
-  },
-  {
-    name: 'settings',
-    path: '/settings',
-    component: () => import('../views/Settings.vue')
   },
   {
     name: 'catchAll',
