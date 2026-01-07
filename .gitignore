@@ -142,3 +142,4 @@ vite.config.ts.timestamp-*
 
 # custom
 src/renderer/src/assets/mock.json
+build/icon.*
