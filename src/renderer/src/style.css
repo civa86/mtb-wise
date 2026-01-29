@@ -2,6 +2,8 @@
 @import 'tailwindcss-primeui';
 @import 'primeicons/primeicons.css';
 
+@import 'leaflet/dist/leaflet.css';
+
 @custom-variant dark (&:where(..mtb-wise-dark, .mtb-wise-dark *));
 
 body,
@@ -29,4 +31,12 @@ html {
 
 .p-dataview-empty-message {
   @apply px-6 mt-8;
+}
+
+:root,
+.mtb-wise-dark {
+  --p-progressspinner-color-one: var(--p-orange-600) !important;
+  --p-progressspinner-color-two: var(--p-orange-600) !important;
+  --p-progressspinner-color-three: var(--p-orange-600) !important;
+  --p-progressspinner-color-four: var(--p-orange-600) !important;
 }

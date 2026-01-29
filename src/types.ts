@@ -39,4 +39,18 @@ export type Activity = {
   elev_high: number
   elev_low: number
   total_photo_count: number
+  start_latlng: Array<number>
+  map: {
+    polyline: string
+  }
+}
+
+export type ActivityPhotosRaw = {
+  unique_id: string
+  urls: Record<string, string>
+}
+
+export type ActivityPhotos = {
+  id: string
+  url: string
 }

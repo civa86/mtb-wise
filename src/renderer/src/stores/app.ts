@@ -1,18 +1,18 @@
 import { defineStore } from 'pinia'
 import { RemovableRef, useLocalStorage } from '@vueuse/core'
 // TYPES
-import { ApplicationSetting } from 'src/types'
+import { Activity, ActivityPhotos, ApplicationSetting } from 'src/types'
 // UTILS
 import { getActivitiesMaxDate } from '@renderer/utils'
 // API
-import { fetchActivities } from '@renderer/api/strava'
+import { fetchActivities, fetchActivity, fetchActivityPhotos } from '@renderer/api/strava'
 // STORES
 import { useAuthStore } from '@renderer/stores/auth'
 
 type AppState = {
   settings: ApplicationSetting | null
   isFetching: boolean
-  activities: Array<any>
+  activities: Array<Activity>
   error: boolean
   darkMode: RemovableRef<boolean>
   activitySortDirection: 'asc' | 'desc'
@@ -21,6 +21,7 @@ type AppState = {
 }
 
 const ACTIVITIES_PER_PAGE = 200
+const PHOTO_SIZE = 2048
 const MTB_SPORT_TYPE = 'MountainBikeRide'
 
 export const useAppStore = defineStore('app', {
@@ -107,6 +108,32 @@ export const useAppStore = defineStore('app', {
         this.isFetching = false
       }
     },
+    async fetchActivity(id: string): Promise<Activity | null> {
+      try {
+        const authStore = useAuthStore()
+        this.isFetching = true
+        await authStore.refreshToken()
+        const result = await fetchActivity(id)
+        this.isFetching = false
+        return result
+      } catch (e) {
+        this.isFetching = false
+        return null
+      }
+    },
+    async fetchActivityPhotos(id: string): Promise<Array<ActivityPhotos>> {
+      try {
+        const authStore = useAuthStore()
+        this.isFetching = true
+        await authStore.refreshToken()
+        const result = await fetchActivityPhotos(id, PHOTO_SIZE)
+        this.isFetching = false
+        return result.map(x => ({ id: x.unique_id, url: x.urls[PHOTO_SIZE] }))
+      } catch (e) {
+        this.isFetching = false
+        return []
+      }
+    },
     toggleActivitySortDirection() {
       if (this.activitySortDirection === 'asc') {
         this.activitySortDirection = 'desc'
@@ -119,6 +146,12 @@ export const useAppStore = defineStore('app', {
       if (option) {
         this.activitySortField = option.value
       }
+    },
+    showPhotos(id: string) {
+      window.api.showPhotos(id)
+    },
+    showMap(id: string) {
+      window.api.showMap(id)
     }
   }
 })

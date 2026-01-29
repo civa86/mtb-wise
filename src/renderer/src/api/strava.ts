@@ -1,6 +1,6 @@
 import { AxiosError } from 'axios'
 // TYPES
-import { StravaTokenResponse } from 'src/types'
+import { Activity, ActivityPhotosRaw, StravaTokenResponse } from 'src/types'
 // UTILS
 import { objectToQueryString } from '@renderer/utils'
 // API
@@ -29,7 +29,7 @@ export const getToken = async (clientId: string, clientSecret: string, code: str
   }
 }
 
-export const fetchActivities = async (page: number, perPage: number, after?: number) => {
+export const fetchActivities = async (page: number, perPage: number, after?: number): Promise<Array<Activity>> => {
   try {
     const query: Record<string, number> = { page, per_page: perPage }
     if (after) query.after = after
@@ -38,6 +38,32 @@ export const fetchActivities = async (page: number, perPage: number, after?: num
 
     const instance = await ApiClient(API_BASE_URL, true)
     const { data } = await instance.get(`/api/v3/athlete/activities?${queryString}`)
+    return data
+  } catch (e) {
+    const error = e as AxiosError
+    if (error.response && error.response.status === 401) throw new Error('AUTH_ERROR')
+    const message = error.message || 'ERROR_GENERIC'
+    throw new Error(message)
+  }
+}
+
+export const fetchActivity = async (id: string): Promise<Activity> => {
+  try {
+    const instance = await ApiClient(API_BASE_URL, true)
+    const { data } = await instance.get(`/api/v3/activities/${id}`)
+    return data
+  } catch (e) {
+    const error = e as AxiosError
+    if (error.response && error.response.status === 401) throw new Error('AUTH_ERROR')
+    const message = error.message || 'ERROR_GENERIC'
+    throw new Error(message)
+  }
+}
+
+export const fetchActivityPhotos = async (id: string, size: number): Promise<Array<ActivityPhotosRaw>> => {
+  try {
+    const instance = await ApiClient(API_BASE_URL, true)
+    const { data } = await instance.get(`/api/v3/activities/${id}/photos?size=${size}`)
     return data
   } catch (e) {
     const error = e as AxiosError

@@ -24,6 +24,17 @@ const init = async (to: RouteLocationNormalized, _from: RouteLocationNormalized,
 
 const routes: Array<RouteRecordRaw> = [
   {
+    name: 'photos',
+    path: '/photos/:id',
+    component: () => import('../views/Photos.vue')
+  },
+  {
+    name: 'map',
+    path: '/map/:id',
+    component: () => import('../views/Map.vue'),
+    meta: { noPadding: true }
+  },
+  {
     name: 'main',
     path: '/',
     component: () => import('../views/Main.vue'),
@@ -36,12 +47,14 @@ const routes: Array<RouteRecordRaw> = [
       {
         name: 'statistics',
         path: 'statistics',
-        component: () => import('../views/Statistics.vue')
+        component: () => import('../views/Statistics.vue'),
+        meta: { header: true }
       },
       {
         name: 'activities',
         path: 'activities',
-        component: () => import('../views/Activities.vue')
+        component: () => import('../views/Activities.vue'),
+        meta: { header: true }
       },
       {
         name: 'settings',

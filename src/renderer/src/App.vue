@@ -8,12 +8,16 @@
     </div>
   </div>
 
-  <div v-else class="min-h-full p-4 flex flex-col bg-primary-100 dark:bg-primary-700">
+  <div
+    v-else
+    class="min-h-full flex flex-col bg-primary-100 dark:bg-primary-700"
+    :class="{ 'p-4': !route.meta.noPadding }"
+  >
     <div v-if="appStore.error" class="h-full flex flex-col items-center justify-center">
       <GeneralError @reload="appStore.reload()" />
     </div>
     <div class="grow flex flex-col" v-else>
-      <Header class="mb-4" v-if="route.name !== 'settings'" />
+      <Header class="mb-4" v-if="route.meta.header" />
       <router-view />
     </div>
     <div v-if="appStore.isFetching" class="fixed top-0 left-0 w-full h-full flex items-center justify-center">

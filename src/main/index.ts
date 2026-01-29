@@ -204,3 +204,57 @@ ipcMain.on('app:authorize', (_event, value) => {
   authWindow.webContents.userAgent = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:70.0) Gecko/20100101 Firefox/70.0'
   authWindow.loadURL(value)
 })
+
+ipcMain.handle('app:show-photos', (_event: IpcMainInvokeEvent, id: string): void => {
+  const uri = `#/photos/${id}`
+
+  const photosWindow = new BrowserWindow({
+    width: APP_WINDOW_WIDTH,
+    height: APP_WINDOW_HEIGHT,
+    show: false,
+    autoHideMenuBar: true,
+    ...(process.platform === 'linux' ? { icon } : {}),
+    webPreferences: {
+      preload: join(__dirname, '../preload/index.js'),
+      sandbox: false,
+      devTools: app.isPackaged ? false : true
+    }
+  })
+
+  photosWindow.on('ready-to-show', () => {
+    if (photosWindow) photosWindow.show()
+  })
+
+  if (is.dev && process.env['ELECTRON_RENDERER_URL']) {
+    photosWindow.loadURL(`${process.env['ELECTRON_RENDERER_URL']}/${uri}`)
+  } else {
+    photosWindow.loadFile(join(__dirname, `../renderer/index.html${uri}`))
+  }
+})
+
+ipcMain.handle('app:show-map', (_event: IpcMainInvokeEvent, id: string): void => {
+  const uri = `#/map/${id}`
+
+  const mapWindow = new BrowserWindow({
+    width: APP_WINDOW_WIDTH,
+    height: APP_WINDOW_HEIGHT,
+    show: false,
+    autoHideMenuBar: true,
+    ...(process.platform === 'linux' ? { icon } : {}),
+    webPreferences: {
+      preload: join(__dirname, '../preload/index.js'),
+      sandbox: false,
+      devTools: app.isPackaged ? false : true
+    }
+  })
+
+  mapWindow.on('ready-to-show', () => {
+    if (mapWindow) mapWindow.show()
+  })
+
+  if (is.dev && process.env['ELECTRON_RENDERER_URL']) {
+    mapWindow.loadURL(`${process.env['ELECTRON_RENDERER_URL']}/${uri}`)
+  } else {
+    mapWindow.loadFile(join(__dirname, `../renderer/index.html${uri}`))
+  }
+})

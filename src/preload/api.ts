@@ -11,6 +11,8 @@ export interface Api {
   writeActivities: (activities: Array<Activity>) => Promise<boolean>
   authorize: (authURL: string) => void
   onSetAuthorizationCode: (callback: (code: string) => void) => void
+  showPhotos: (id: string) => void
+  showMap: (id: string) => void
 }
 
 const reload = () => ipcRenderer.send('app:reload')
@@ -61,6 +63,10 @@ const authorize = (authURL: string) => ipcRenderer.send('app:authorize', authURL
 const onSetAuthorizationCode = (callback: (value: string) => void) =>
   ipcRenderer.on('set-authorization-code', (_event, value) => callback(value))
 
+const showPhotos = (id: string) => ipcRenderer.invoke('app:show-photos', id)
+
+const showMap = (id: string) => ipcRenderer.invoke('app:show-map', id)
+
 export default {
   reload,
   readSettings,
@@ -70,5 +76,7 @@ export default {
   readActivities,
   writeActivities,
   authorize,
-  onSetAuthorizationCode
+  onSetAuthorizationCode,
+  showPhotos,
+  showMap
 }

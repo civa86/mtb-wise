@@ -10,10 +10,11 @@
 [X] ACTIVITIES stiky header
 [X] ACTIVITIES add search field
 [X] ACTIVITIES change select for sort with a selectButton
-[ ] ACTIVITIES get activity photos in a popup
-[ ] ACTIVITIES get activity map in a popup
+[X] ACTIVITIES get activity photos in a popup
+[X] ACTIVITIES get activity map in a popup
 [X] UI make a better icon
 [X] ALL change prime vue import in a unique line
+[ ] GENERAL check the behavior of child windows (photos / map) when main closes
 [ ] ALL search and clean console.log / TODO
 [ ] test complete workflow from first settings etc...
 [ ] Github Repo

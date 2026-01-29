@@ -51,7 +51,7 @@
                       <div>{{ item.name }}</div>
                       <div class="text-sm dark:text-surface-500">{{ formatActivityDate(item.start_date) }}</div>
                     </div>
-                    <div class="grid grid-cols-5">
+                    <div class="grid grid-cols-5 items-end">
                       <!-- DISTANCE -->
                       <div class="flex-col gap-1">
                         <div class="text-xs uppercase text-surface-200 dark:text-surface-500">Distance</div>
@@ -95,6 +95,22 @@
                             <div class="text-sm text-orange-700 dark:text-orange-600">h</div>
                           </div>
                         </div>
+                      </div>
+                      <!-- IMAGES -->
+                      <div class="flex gap-4 justify-end">
+                        <button
+                          v-if="item.total_photo_count > 0"
+                          @click="appStore.showPhotos(item.id)"
+                          class="cursor-pointer text-orange-700 dark:text-orange-600"
+                        >
+                          <i class="pi pi-image" />
+                        </button>
+                        <button
+                          @click="appStore.showMap(item.id)"
+                          class="cursor-pointer text-orange-700 dark:text-orange-600"
+                        >
+                          <i class="pi pi-map" />
+                        </button>
                       </div>
                     </div>
                   </div>
