@@ -213,6 +213,7 @@ ipcMain.handle('app:show-photos', (_event: IpcMainInvokeEvent, id: string): void
     height: APP_WINDOW_HEIGHT,
     show: false,
     autoHideMenuBar: true,
+    parent: mainWindow ? mainWindow : undefined,
     ...(process.platform === 'linux' ? { icon } : {}),
     webPreferences: {
       preload: join(__dirname, '../preload/index.js'),
@@ -240,6 +241,7 @@ ipcMain.handle('app:show-map', (_event: IpcMainInvokeEvent, id: string): void =>
     height: APP_WINDOW_HEIGHT,
     show: false,
     autoHideMenuBar: true,
+    parent: mainWindow ? mainWindow : undefined,
     ...(process.platform === 'linux' ? { icon } : {}),
     webPreferences: {
       preload: join(__dirname, '../preload/index.js'),

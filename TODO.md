@@ -14,7 +14,7 @@
 [X] ACTIVITIES get activity map in a popup
 [X] UI make a better icon
 [X] ALL change prime vue import in a unique line
-[ ] GENERAL check the behavior of child windows (photos / map) when main closes
+[X] GENERAL check the behavior of child windows (photos / map) when main closes
 [ ] ALL search and clean console.log / TODO
 [ ] test complete workflow from first settings etc...
 [ ] Github Repo
