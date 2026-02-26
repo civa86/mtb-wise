@@ -9,7 +9,7 @@
       <router-link v-if="route.name !== item.routeName" :to="{ name: item.routeName }">
         <div class="flex items-center gap-2 px-4 py-2">
           <span :class="item.icon" />
-          <span>{{ item.label }}</span>
+          <span>{{ $t(item.label as string) }}</span>
         </div>
       </router-link>
       <div v-else>
@@ -50,12 +50,12 @@ const appStore = useAppStore()
 
 const items = ref([
   {
-    label: 'Statistics',
+    label: 'MENU_STATISTICS',
     icon: 'pi pi-chart-bar',
     routeName: 'statistics'
   },
   {
-    label: 'Activities',
+    label: 'MENU_ACTIVITIES',
     icon: 'pi pi-list',
     routeName: 'activities'
   }

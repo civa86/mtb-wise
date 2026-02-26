@@ -3,10 +3,10 @@
     <ProgressBar :status="usageStatus" :value="usagePercentage"></ProgressBar>
   </div>
   <div class="grid grid-cols-2 gap-8">
-    <Fieldset legend="SINCE LAST MAINTENANCE">
+    <Fieldset :legend="$t('SINCE_LAST_MAINTENANCE')">
       <Time :seconds="secondsSinceLast" />
     </Fieldset>
-    <Fieldset legend="BEFORE NEXT MAINTENANCE">
+    <Fieldset :legend="$t('BEFORE_NEXT_MAINTENANCE')">
       <Time :seconds="secondsBeforeNext" />
     </Fieldset>
   </div>

@@ -1,3 +1,14 @@
 {
-  "hello": "CIAO"
+  "GENERAL_ERROR": "Qualcosa è andato storto!",
+  "MENU_STATISTICS": "Statistics",
+  "MENU_ACTIVITIES": "Activities",
+  "SUSPENSION_USAGE": "Utilizzo sospensioni",
+  "SINCE_LAST_MAINTENANCE": "Dall'ultima manutenzione",
+  "BEFORE_NEXT_MAINTENANCE": "Prima della prossima manutenzione",
+  "TOTAL_TIME": "Tempo totale",
+  "TOTAL_DISTANCE": "Chilometri totali",
+  "HIGHEST_ELEVATION": "Massima +elevazione",
+  "AVERAGE_TIME": "Tempo medio",
+  "AVERAGE_DISTANCE": "Chilometri medi",
+  "AVERAGE_ELEVATION": "Media +elevazione"
 }

@@ -2,7 +2,7 @@
   <div v-if="!appStore.isFetching" class="flex flex-col gap-4">
     <Card v-if="appStore.settings">
       <template #subtitle>
-        <span class="uppercase">Suspensions usage</span>
+        <span class="uppercase">{{ $t('SUSPENSION_USAGE') }}</span>
       </template>
       <template #content>
         <Suspensions
@@ -17,17 +17,17 @@
       <template #content>
         <Fieldset legend="SUMMARY">
           <div class="pt-3 grid grid-cols-3 gap-8">
-            <Time :seconds="appStore.totalTime" label="Total Time" />
+            <Time :seconds="appStore.totalTime" :label="$t('TOTAL_TIME')" />
 
-            <Distance :distance="appStore.totalDistance" label="Total Kilometers" />
+            <Distance :distance="appStore.totalDistance" :label="$t('TOTAL_DISTANCE')" />
 
-            <Elevation :elevation="appStore.maxElevation" label="Highest +Elevation" />
+            <Elevation :elevation="appStore.maxElevation" :label="$t('HIGHEST_ELEVATION')" />
 
-            <Time :seconds="appStore.avgTime" label="Average Time" />
+            <Time :seconds="appStore.avgTime" :label="$t('AVERAGE_TIME')" />
 
-            <Distance :distance="appStore.avgDistance" label="Average Kilometers" />
+            <Distance :distance="appStore.avgDistance" :label="$t('AVERAGE_DISTANCE')" />
 
-            <Elevation :elevation="appStore.avgElevation" label="Average +Elevation" />
+            <Elevation :elevation="appStore.avgElevation" :label="$t('AVERAGE_ELEVATION')" />
           </div>
         </Fieldset>
       </template>
