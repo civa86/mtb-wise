@@ -3,7 +3,7 @@
 [X] GENERAL Uniform all import with comments
 [X] SETTINGS put dark mode inside
 [X] SETTINGS show toast with settings save
-[ ] SETTINGS put language selectior + vue i18n
+[X] SETTINGS put language selectior + vue i18n
 [X] SETTINGS change title + border bottom with FieldSet
 [X] SUSPENSIONS implement read of last activity date
 [X] SUSPENSIONS different colors for progress bar in suspensions
@@ -15,6 +15,7 @@
 [X] UI make a better icon
 [X] ALL change prime vue import in a unique line
 [X] GENERAL check the behavior of child windows (photos / map) when main closes
+[X] Tooltips
 [ ] ALL search and clean console.log / TODO
 [ ] test complete workflow from first settings etc...
 [ ] Github Repo

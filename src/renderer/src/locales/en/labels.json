@@ -39,5 +39,9 @@
   "ELEVATION": "Elevation",
   "SPEED": "Speed",
   "MAX_SPEED": "Max Speed",
-  "PAGE_NOT_FOUND": "Page not found"
+  "PAGE_NOT_FOUND": "Page not found",
+  "SETTINGS": "Settings",
+  "REFRESH_DATA": "Refresh Data",
+  "MAP": "Map",
+  "PHOTOS": "Photos"
 }

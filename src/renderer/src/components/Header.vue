@@ -20,6 +20,7 @@
     <template #end>
       <div class="flex items-center gap-2">
         <Button
+          v-tooltip.bottom="{ value: $t('REFRESH_DATA'), showDelay: 1000, hideDelay: 300 }"
           @click="appStore.fetchData()"
           icon="pi pi-sync"
           severity="secondary"
@@ -28,7 +29,14 @@
           rounded
         />
         <router-link :to="{ name: 'settings' }">
-          <Button icon="pi pi-cog" severity="secondary" variant="text" size="large" rounded />
+          <Button
+            v-tooltip.bottom="{ value: $t('SETTINGS'), showDelay: 1000, hideDelay: 300 }"
+            icon="pi pi-cog"
+            severity="secondary"
+            variant="text"
+            size="large"
+            rounded
+          />
         </router-link>
       </div>
     </template>

@@ -39,5 +39,9 @@
   "ELEVATION": "Dislivello",
   "SPEED": "Velocità",
   "MAX_SPEED": "Velocità massima",
-  "PAGE_NOT_FOUND": "Pagina non trovata"
+  "PAGE_NOT_FOUND": "Pagina non trovata",
+  "SETTINGS": "Impostazioni",
+  "REFRESH_DATA": "Aggiorna Dati",
+  "MAP": "Mappa",
+  "PHOTOS": "Foto"
 }

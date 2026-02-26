@@ -6,6 +6,7 @@ import { createPinia } from 'pinia'
 import PrimeVue from 'primevue/config'
 import ToastService from 'primevue/toastservice'
 import KeyFilter from 'primevue/keyfilter'
+import Tooltip from 'primevue/tooltip'
 import { definePreset } from '@primeuix/themes'
 import Aura from '@primeuix/themes/aura'
 
@@ -67,5 +68,7 @@ useAppStore(pinia)
     app.use(setupI18n())
     app.use(router)
     app.directive('keyfilter', KeyFilter)
+    app.directive('tooltip', Tooltip)
+
     app.mount('#app')
   })

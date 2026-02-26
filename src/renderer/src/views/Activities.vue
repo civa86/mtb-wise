@@ -108,12 +108,14 @@
                       <div class="flex gap-4 justify-end">
                         <button
                           v-if="item.total_photo_count > 0"
+                          v-tooltip.bottom="{ value: $t('PHOTOS'), showDelay: 1000, hideDelay: 300 }"
                           @click="appStore.showPhotos(item.id)"
                           class="cursor-pointer text-orange-700 dark:text-orange-600"
                         >
                           <i class="pi pi-image" />
                         </button>
                         <button
+                          v-tooltip.left="{ value: $t('MAP'), showDelay: 1000, hideDelay: 300 }"
                           @click="appStore.showMap(item.id)"
                           class="cursor-pointer text-orange-700 dark:text-orange-600"
                         >
