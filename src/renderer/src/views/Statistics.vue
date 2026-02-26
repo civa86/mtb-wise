@@ -15,7 +15,7 @@
 
     <Card>
       <template #content>
-        <Fieldset legend="SUMMARY">
+        <Fieldset :legend="$t('SUMMARY')">
           <div class="pt-3 grid grid-cols-3 gap-8">
             <Time :seconds="appStore.totalTime" :label="$t('TOTAL_TIME')" />
 

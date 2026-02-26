@@ -9,6 +9,7 @@ import { fetchActivities, fetchActivity, fetchActivityPhotos } from '@renderer/a
 // STORES
 import { useAuthStore } from '@renderer/stores/auth'
 import { setI18nLanguage } from '@renderer/i18n'
+import { PrimeVueConfiguration } from 'primevue/config'
 
 type AppState = {
   settings: ApplicationSetting | null
@@ -42,11 +43,11 @@ export const useAppStore = defineStore('app', {
     activitySortDirection: 'desc',
     activitySortField: 'start_date_local',
     activitySortOptions: [
-      { label: 'Date', value: 'start_date_local' },
-      { label: 'Distance', value: 'distance' },
-      { label: 'Duration', value: 'moving_time' },
-      { label: 'Elevation', value: 'total_elevation_gain' },
-      { label: 'Speed', value: 'max_speed' }
+      { label: 'DATE', value: 'start_date_local' },
+      { label: 'DISTANCE', value: 'distance' },
+      { label: 'DURATION', value: 'moving_time' },
+      { label: 'DISTANCE', value: 'total_elevation_gain' },
+      { label: 'SPEED', value: 'max_speed' }
     ]
   }),
   getters: {
@@ -93,18 +94,18 @@ export const useAppStore = defineStore('app', {
         this.error = true
       }
     },
-    setLocale(locale: string) {
+    setLocale(locale: string, pvConfig: { config: PrimeVueConfiguration }) {
       this.locale = locale
-      setI18nLanguage(locale)
+      setI18nLanguage(locale, pvConfig)
     },
-    initLocale() {
+    initLocale(pvConfig: { config: PrimeVueConfiguration }) {
       if (!this.locale) {
         const detectedLocale = navigator.languages[0].split('-')[0].toLowerCase()
         if (detectedLocale && this.availableLocalesCodes.includes(detectedLocale)) {
           this.locale = detectedLocale
         }
       }
-      this.setLocale(this.locale)
+      this.setLocale(this.locale, pvConfig)
     },
     toggleDarkMode() {
       this.darkMode = !this.darkMode

@@ -54,9 +54,6 @@ useAppStore(pinia)
   .boot()
   .then(() => {
     const app = createApp(App)
-    app.use(pinia)
-    app.use(setupI18n())
-    app.use(router)
     app.use(PrimeVue, {
       theme: {
         preset: Noir,
@@ -66,6 +63,9 @@ useAppStore(pinia)
       }
     })
     app.use(ToastService)
+    app.use(pinia)
+    app.use(setupI18n())
+    app.use(router)
     app.directive('keyfilter', KeyFilter)
     app.mount('#app')
   })

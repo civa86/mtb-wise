@@ -29,6 +29,7 @@
 <script lang="ts" setup>
 import { useRoute } from 'vue-router'
 import { ProgressSpinner, Toast } from 'primevue'
+import { usePrimeVue } from 'primevue/config'
 // STORES
 import { useAuthStore } from '@renderer/stores/auth'
 import { useAppStore } from '@renderer/stores/app'
@@ -37,10 +38,10 @@ import Loader from '@renderer/components/Loader.vue'
 import GeneralError from '@renderer/components/GeneralError.vue'
 import Header from '@renderer/components/Header.vue'
 
+const primevue = usePrimeVue()
 const authStore = useAuthStore()
 const appStore = useAppStore()
 
 const route = useRoute()
-
-appStore.initLocale()
+appStore.initLocale(primevue)
 </script>

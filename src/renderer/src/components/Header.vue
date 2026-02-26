@@ -13,7 +13,7 @@
         </div>
       </router-link>
       <div v-else>
-        <Button severity="primary" :icon="item.icon" :label="item.label as string" />
+        <Button severity="primary" :icon="item.icon" :label="$t(item.label as string)" />
       </div>
     </template>
 

@@ -26,7 +26,7 @@
                   </SelectButton>
                   <SelectButton v-model="sortField" :options="appStore.activitySortOptions.map(x => x.label)">
                     <template #option="{ option }">
-                      <div class="uppercase text-xs">{{ option }}</div>
+                      <div class="uppercase text-xs">{{ $t(option) }}</div>
                     </template>
                   </SelectButton>
                 </div>
@@ -34,7 +34,7 @@
                 <div class="pl-12">
                   <IconField>
                     <InputIcon class="pi pi-search" />
-                    <InputText placeholder="Search" size="small" fluid v-model="search" />
+                    <InputText :placeholder="$t('SEARCH')" size="small" fluid v-model="search" />
                     <InputIcon v-if="search !== ''" class="pi pi-times cursor-pointer" @click="search = ''" />
                   </IconField>
                 </div>
@@ -54,7 +54,9 @@
                     <div class="grid grid-cols-5 items-end">
                       <!-- DISTANCE -->
                       <div class="flex-col gap-1">
-                        <div class="text-xs uppercase text-surface-200 dark:text-surface-500">Distance</div>
+                        <div class="text-xs uppercase text-surface-200 dark:text-surface-500">
+                          {{ $t('DISTANCE') }}
+                        </div>
                         <div class="flex gap-1 items-baseline">
                           <div>{{ (item.distance / 1000).toFixed(2) }}</div>
                           <div class="text-sm text-orange-700 dark:text-orange-600">Km</div>
@@ -62,7 +64,9 @@
                       </div>
                       <!-- TIME -->
                       <div class="flex-col gap-1">
-                        <div class="text-xs uppercase text-surface-200 dark:text-surface-500">Duration</div>
+                        <div class="text-xs uppercase text-surface-200 dark:text-surface-500">
+                          {{ $t('DURATION') }}
+                        </div>
                         <div class="flex gap-1 items-baseline">
                           <div
                             v-for="(time, tj) in secondsToHHMMSS(item.moving_time)"
@@ -78,7 +82,9 @@
                       </div>
                       <!-- ELEVTAION -->
                       <div class="flex-col gap-1">
-                        <div class="text-xs uppercase text-surface-200 dark:text-surface-500">Elevation</div>
+                        <div class="text-xs uppercase text-surface-200 dark:text-surface-500">
+                          {{ $t('ELEVATION') }}
+                        </div>
                         <div class="flex gap-1 items-baseline">
                           <div>{{ Math.round(item.total_elevation_gain) }}</div>
                           <div class="text-sm text-orange-700 dark:text-orange-600">m</div>
@@ -86,7 +92,9 @@
                       </div>
                       <!-- MAX SPEED -->
                       <div class="flex-col gap-1">
-                        <div class="text-xs uppercase text-surface-200 dark:text-surface-500">Max Speed</div>
+                        <div class="text-xs uppercase text-surface-200 dark:text-surface-500">
+                          {{ $t('MAX_SPEED') }}
+                        </div>
                         <div class="flex gap-1 items-baseline">
                           <div>{{ msToKmh(item.max_speed).toFixed(1) }}</div>
                           <div class="flex gap-0.5">

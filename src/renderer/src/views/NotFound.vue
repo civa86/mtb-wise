@@ -1,7 +1,7 @@
 <template>
   <div class="h-full flex flex-col grow items-center justify-center">
     <Message severity="error" icon="pi pi-times-circle" class="py-8 px-16">
-      <div class="text-2xl">Page not found</div>
+      <div class="text-2xl">{{ $t('PAGE_NOT_FOUND') }}</div>
     </Message>
   </div>
 </template>
