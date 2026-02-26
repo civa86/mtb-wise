@@ -8,7 +8,7 @@ import L from 'leaflet'
 import PolyUtils from 'polyline-encoded'
 import { $dt } from '@primeuix/themes'
 // TYPES
-import { Activity } from 'src/types'
+import { Activity } from '@types'
 // STORES
 import { useAppStore } from '@renderer/stores/app'
 

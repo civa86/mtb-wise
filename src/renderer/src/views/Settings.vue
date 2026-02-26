@@ -26,12 +26,22 @@
         <template #content>
           <Fieldset legend="APPLICATION">
             <div>
-              <label class="uppercase text-sm">Theme</label>
-              <SelectButton :options="themeOptions" v-model="darkMode">
+              <label class="uppercase text-sm block">Theme</label>
+              <SelectButton class="mt-1" :options="themeOptions" v-model="darkMode">
                 <template #option="{ option }">
                   <div class="flex gap-2 items-center">
                     <i :class="{ 'pi pi-sun': option === 'light', 'pi pi-moon': option === 'dark' }" />
                     <span class="uppercase text-sm">{{ option }}</span>
+                  </div>
+                </template>
+              </SelectButton>
+            </div>
+            <div class="mt-4">
+              <label class="uppercase text-sm block">Language</label>
+              <SelectButton class="mt-1" :options="appStore.availableLocalesCodes" v-model="currentLanguage">
+                <template #option="{ option }">
+                  <div class="pb-1">
+                    <CountryFlag :country="languageFlag(option)" size="normal" />
                   </div>
                 </template>
               </SelectButton>
@@ -133,15 +143,15 @@ import {
   Fieldset
 } from 'primevue'
 // TYPES
-import { ApplicationSetting } from 'src/types'
+import { ApplicationSetting } from '@types'
 // STORES
 import { useAppStore } from '@renderer/stores/app'
 // COMPONENTS
+import CountryFlag from 'vue-country-flag-next'
 import Logo from '@renderer/components/Logo.vue'
 
 const router = useRouter()
 const appStore = useAppStore()
-
 const toast = useToast()
 
 const themeOptions = ref(['light', 'dark'])
@@ -150,6 +160,13 @@ const darkMode = computed({
   get: () => (appStore.darkMode ? 'dark' : 'light'),
   set: () => appStore.toggleDarkMode()
 })
+
+const currentLanguage = computed({
+  get: () => appStore.locale,
+  set: appStore.setLocale
+})
+
+const languageFlag = locale => appStore.availableLocales.find(x => x.code === locale)?.flag
 
 const resolver = ({ values }) => {
   const errors: Record<string, Array<object>> = {}

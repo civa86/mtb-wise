@@ -41,4 +41,6 @@ const authStore = useAuthStore()
 const appStore = useAppStore()
 
 const route = useRoute()
+
+appStore.initLocale()
 </script>

@@ -1,13 +1,14 @@
 import { defineStore } from 'pinia'
 import { RemovableRef, useLocalStorage } from '@vueuse/core'
 // TYPES
-import { Activity, ActivityPhotos, ApplicationSetting } from 'src/types'
+import { Activity, ActivityPhotos, ApplicationSetting } from '@types'
 // UTILS
 import { getActivitiesMaxDate } from '@renderer/utils'
 // API
 import { fetchActivities, fetchActivity, fetchActivityPhotos } from '@renderer/api/strava'
 // STORES
 import { useAuthStore } from '@renderer/stores/auth'
+import { setI18nLanguage } from '@renderer/i18n'
 
 type AppState = {
   settings: ApplicationSetting | null
@@ -15,6 +16,8 @@ type AppState = {
   activities: Array<Activity>
   error: boolean
   darkMode: RemovableRef<boolean>
+  availableLocales: Array<{ code: string; flag: string }>
+  locale: RemovableRef<string>
   activitySortDirection: 'asc' | 'desc'
   activitySortField: string
   activitySortOptions: Array<{ label: string; value: string }>
@@ -31,6 +34,11 @@ export const useAppStore = defineStore('app', {
     activities: [],
     error: false,
     darkMode: useLocalStorage('darkMode', false),
+    availableLocales: [
+      { code: 'en', flag: 'gb' },
+      { code: 'it', flag: 'it' }
+    ],
+    locale: useLocalStorage('i18nLocale', ''),
     activitySortDirection: 'desc',
     activitySortField: 'start_date_local',
     activitySortOptions: [
@@ -55,7 +63,8 @@ export const useAppStore = defineStore('app', {
     avgElevation: state =>
       state.activities.reduce((acc, activity) => acc + activity.total_elevation_gain, 0) / state.activities.length,
     maxElevation: state => Math.max(...state.activities.map(x => x.total_elevation_gain)),
-    selectedActivitySortOption: state => state.activitySortOptions.find(x => x.value === state.activitySortField)
+    selectedActivitySortOption: state => state.activitySortOptions.find(x => x.value === state.activitySortField),
+    availableLocalesCodes: state => state.availableLocales.map(x => x.code)
   },
   actions: {
     async readSettings() {
@@ -79,9 +88,23 @@ export const useAppStore = defineStore('app', {
         if (this.darkMode) {
           document.documentElement.classList.add('mtb-wise-dark')
         }
+        await this.fetchData()
       } catch (e) {
         this.error = true
       }
+    },
+    setLocale(locale: string) {
+      this.locale = locale
+      setI18nLanguage(locale)
+    },
+    initLocale() {
+      if (!this.locale) {
+        const detectedLocale = navigator.languages[0].split('-')[0].toLowerCase()
+        if (detectedLocale && this.availableLocalesCodes.includes(detectedLocale)) {
+          this.locale = detectedLocale
+        }
+      }
+      this.setLocale(this.locale)
     },
     toggleDarkMode() {
       this.darkMode = !this.darkMode

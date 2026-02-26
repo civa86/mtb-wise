@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia'
 // TYPES
-import { ApplicationSetting, AuthData, StravaTokenResponse } from 'src/types'
+import { ApplicationSetting, AuthData, StravaTokenResponse } from '@types'
 // API
 import { getAuthorizationURL, getToken, refreshToken } from '@renderer/api/strava'
 // STORES

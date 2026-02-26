@@ -20,7 +20,7 @@ import { ref, onMounted } from 'vue'
 import { useRoute } from 'vue-router'
 import { Carousel, Image } from 'primevue'
 import { useAppStore } from '@renderer/stores/app'
-import { Activity, ActivityPhotos } from 'src/types'
+import { Activity, ActivityPhotos } from '@types'
 
 const appStore = useAppStore()
 const route = useRoute()

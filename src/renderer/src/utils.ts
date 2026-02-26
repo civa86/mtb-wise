@@ -1,5 +1,5 @@
 // TYPES
-import { Activity } from 'src/types'
+import { Activity } from '@types'
 
 export const objectToQueryString = (obj: Record<string, unknown>): string => {
   return Object.entries(obj)

@@ -1,6 +1,6 @@
 import { AxiosError } from 'axios'
 // TYPES
-import { Activity, ActivityPhotosRaw, StravaTokenResponse } from 'src/types'
+import { Activity, ActivityPhotosRaw, StravaTokenResponse } from '@types'
 // UTILS
 import { objectToQueryString } from '@renderer/utils'
 // API

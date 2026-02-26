@@ -10,6 +10,7 @@ import { definePreset } from '@primeuix/themes'
 import Aura from '@primeuix/themes/aura'
 
 import { useAppStore } from '@renderer/stores/app'
+import { setupI18n } from '@renderer/i18n'
 import router from '@renderer/router'
 import App from '@renderer/App.vue'
 
@@ -53,8 +54,8 @@ useAppStore(pinia)
   .boot()
   .then(() => {
     const app = createApp(App)
-
     app.use(pinia)
+    app.use(setupI18n())
     app.use(router)
     app.use(PrimeVue, {
       theme: {
