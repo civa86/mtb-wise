@@ -44,5 +44,18 @@
   "SETTINGS": "Settings",
   "REFRESH_DATA": "Refresh Data",
   "MAP": "Map",
-  "PHOTOS": "Photos"
+  "PHOTOS": "Photos",
+  "HELP_WELCOME_TO": "Welcome to",
+  "HELP_INTRO": "To start using the application you need to get an API key from Strava.",
+  "HELP_STEP1_PREFIX": "If you have not already,",
+  "HELP_SIGN_UP": "Sign Up",
+  "HELP_STEP1_SUFFIX": "for a Strava account.",
+  "HELP_STEP2_PREFIX": "After you are logged in, go to",
+  "HELP_API_PAGE": "API Page",
+  "HELP_STEP2_SUFFIX": "and create an app.",
+  "HELP_STEP3": "You should see the “My API Application” page now.",
+  "HELP_STEP3_ITEM1": "Create a new Application",
+  "HELP_STEP3_ITEM2_PREFIX": "Copy and save the",
+  "HELP_STEP3_ITEM2_MIDDLE": "and",
+  "HELP_STEP3_ITEM2_SUFFIX": "in Settings"
 }

@@ -17,6 +17,7 @@ import { Activity, ApplicationSetting, AuthData } from '../types'
 let mainWindow: BrowserWindow | null = null
 let mainWindowOrig: Array<number> = []
 let authWindow: BrowserWindow | null = null
+let isHelpOpened = false
 
 const AUTH_DATA = 'auth_data.json'
 const APP_SETTINGS = 'app_settings.json'
@@ -37,7 +38,19 @@ const readUserData = <T>(name: string) => {
   }
 }
 
-const createSecondaryWindow = (uri: string, width?: number, height?: number) => {
+const getRandomInt = (min: number, max: number) => {
+  min = Math.ceil(min)
+  max = Math.floor(max)
+  return Math.floor(Math.random() * (max - min + 1)) + min
+}
+
+const createSecondaryWindow = (
+  uri: string,
+  width?: number,
+  height?: number,
+  sidedWindow?: boolean,
+  onClose?: () => void
+) => {
   const w = width || APP_WINDOW_WIDTH
   const h = height || APP_WINDOW_HEIGHT
   const opts: BrowserWindowConstructorOptions = {
@@ -54,10 +67,10 @@ const createSecondaryWindow = (uri: string, width?: number, height?: number) => 
     }
   }
   if (mainWindow) {
-    mainWindow.setPosition(mainWindowOrig[0] - APP_WINDOW_WIDTH / 2, mainWindowOrig[1])
+    if (sidedWindow) mainWindow.setPosition(mainWindowOrig[0] - APP_WINDOW_WIDTH / 2, mainWindowOrig[1])
     const pos = mainWindow.getPosition()
-    opts.x = pos[0] + APP_WINDOW_WIDTH + 30
-    opts.y = pos[1]
+    opts.x = sidedWindow ? pos[0] + APP_WINDOW_WIDTH + 30 : pos[0] + getRandomInt(15, 400)
+    opts.y = sidedWindow ? pos[1] : pos[1] + getRandomInt(15, 200)
   }
 
   const secondaryWindow = new BrowserWindow(opts)
@@ -67,7 +80,8 @@ const createSecondaryWindow = (uri: string, width?: number, height?: number) => 
   })
 
   secondaryWindow.on('close', () => {
-    if (mainWindow) mainWindow.setPosition(mainWindowOrig[0], mainWindowOrig[1])
+    if (mainWindow && sidedWindow) mainWindow.setPosition(mainWindowOrig[0], mainWindowOrig[1])
+    if (onClose) onClose()
   })
 
   if (is.dev && process.env['ELECTRON_RENDERER_URL']) {
@@ -262,6 +276,11 @@ ipcMain.handle('app:show-photos', (_event: IpcMainInvokeEvent, id: string): void
 
 ipcMain.handle('app:show-map', (_event: IpcMainInvokeEvent, id: string): void => createSecondaryWindow(`#/map/${id}`))
 
-ipcMain.handle('app:show-help', (_event: IpcMainInvokeEvent): void =>
-  createSecondaryWindow(`#/help`, APP_WINDOW_WIDTH / 1.5)
-)
+ipcMain.handle('app:show-help', (_event: IpcMainInvokeEvent): void => {
+  if (!isHelpOpened) {
+    createSecondaryWindow(`#/help`, APP_WINDOW_WIDTH / 1.5, APP_WINDOW_HEIGHT, true, () => {
+      isHelpOpened = false
+    })
+    isHelpOpened = true
+  }
+})

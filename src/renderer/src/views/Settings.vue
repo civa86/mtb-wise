@@ -58,7 +58,18 @@
             <div class="flex flex-col gap-2">
               <!-- STRAVA CLIENT ID -->
               <div>
-                <label class="uppercase text-sm">{{ $t('CLIENT_ID') }}</label>
+                <div class="flex justify-between items-center">
+                  <label class="uppercase text-sm">{{ $t('CLIENT_ID') }}</label>
+                  <Button
+                    @click="appStore.showHelp()"
+                    icon="pi pi-question-circle"
+                    severity="primary"
+                    variant="text"
+                    size="small"
+                    rounded
+                  />
+                </div>
+
                 <InputText name="stravaClientId" :model-value="initialValues.stravaClientId" type="text" fluid />
                 <Message v-if="$form.stravaClientId?.invalid" severity="error" size="small" variant="simple">
                   {{ $form.stravaClientId.error?.message }}
