@@ -78,21 +78,21 @@ export const useAppStore = defineStore('app', {
       window.api.reload()
     },
     async boot() {
-      // const authStore = useAuthStore()
-      // try {
-      //   this.error = false
-      //   await this.readSettings()
-      //   await authStore.readAuthData()
-      //   if (this.settings) {
-      //     authStore.bindEvents(this.settings)
-      //   }
-      if (this.darkMode) {
-        document.documentElement.classList.add('mtb-wise-dark')
+      const authStore = useAuthStore()
+      try {
+        this.error = false
+        await this.readSettings()
+        await authStore.readAuthData()
+        if (this.settings) {
+          authStore.bindEvents(this.settings)
+        }
+        if (this.darkMode) {
+          document.documentElement.classList.add('mtb-wise-dark')
+        }
+        await this.fetchData()
+      } catch (e) {
+        this.error = true
       }
-      //   await this.fetchData()
-      // } catch (e) {
-      //   this.error = true
-      // }
     },
     setLocale(locale: string, pvConfig: { config: PrimeVueConfiguration }) {
       this.locale = locale
