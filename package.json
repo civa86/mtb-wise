@@ -1,5 +1,5 @@
 {
-  "name": "mtb-wise",
+  "name": "mtbike-wise",
   "version": "0.0.0",
   "description": "Application to monitor your mountain bike usage",
   "main": "./out/main/index.js",
