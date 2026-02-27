@@ -3,7 +3,7 @@
     <div class="h-full flex flex-col items-center justify-center">
       <div class="w-full p-32 text-primary-500 flex flex-col items-center">
         <Loader class="animate-pulse duration-300" />
-        <div class="text-primary-900 text-2xl mt-4 animate-pulse">Authorizing</div>
+        <div class="text-primary-900 text-2xl mt-4 animate-pulse">{{ $t('AUTHORIZING') }}</div>
       </div>
     </div>
   </div>

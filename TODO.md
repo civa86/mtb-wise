@@ -16,7 +16,7 @@
 [X] ALL change prime vue import in a unique line
 [X] GENERAL check the behavior of child windows (photos / map) when main closes
 [X] Tooltips
-[ ] ALL search and clean console.log / TODO
-[ ] test complete workflow from first settings etc...
+[X] ALL search and clean console.log / TODO
 [ ] Github Repo
 [ ] Github Action for build mac/win
+[ ] test complete workflow from first settings etc...

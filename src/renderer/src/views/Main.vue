@@ -7,5 +7,5 @@ import { useAppStore } from '@renderer/stores/app'
 
 const appStore = useAppStore()
 
-appStore.fetchData()
+// appStore.fetchData()
 </script>

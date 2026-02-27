@@ -24,7 +24,7 @@
       <!-- APPLICATION -->
       <Card class="w-full col-span-2">
         <template #content>
-          <Fieldset :legend="$t('APPLICATION')">
+          <Fieldset :legend="$t('APPLICATION').toUpperCase()">
             <div>
               <label class="uppercase text-sm block">{{ $t('THEME') }}</label>
               <SelectButton :options="themeOptions" v-model="darkMode">
@@ -54,7 +54,7 @@
       <!-- STRAVA -->
       <Card class="w-full col-span-3">
         <template #content>
-          <Fieldset :legend="$t('STRAVA')">
+          <Fieldset :legend="$t('STRAVA').toUpperCase()">
             <div class="flex flex-col gap-2">
               <!-- STRAVA CLIENT ID -->
               <div>
@@ -85,7 +85,7 @@
       <!-- BIKE MAINTENANCE -->
       <Card class="w-full col-span-5">
         <template #content>
-          <Fieldset :legend="$t('BIKE_MAINTENANCE')">
+          <Fieldset :legend="$t('BIKE_MAINTENANCE').toUpperCase()">
             <div class="grid grid-cols-2 gap-4">
               <!-- LAST MAINTENANCE DATE -->
               <div>

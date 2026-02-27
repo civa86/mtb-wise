@@ -13,6 +13,7 @@ export interface Api {
   onSetAuthorizationCode: (callback: (code: string) => void) => void
   showPhotos: (id: string) => void
   showMap: (id: string) => void
+  showHelp: () => void
 }
 
 const reload = () => ipcRenderer.send('app:reload')
@@ -67,6 +68,8 @@ const showPhotos = (id: string) => ipcRenderer.invoke('app:show-photos', id)
 
 const showMap = (id: string) => ipcRenderer.invoke('app:show-map', id)
 
+const showHelp = () => ipcRenderer.invoke('app:show-help')
+
 export default {
   reload,
   readSettings,
@@ -78,5 +81,6 @@ export default {
   authorize,
   onSetAuthorizationCode,
   showPhotos,
-  showMap
+  showMap,
+  showHelp
 }

@@ -1,4 +1,12 @@
-import { app, shell, BrowserWindow, ipcMain, IpcMainEvent, IpcMainInvokeEvent } from 'electron'
+import {
+  app,
+  shell,
+  BrowserWindow,
+  ipcMain,
+  IpcMainEvent,
+  IpcMainInvokeEvent,
+  BrowserWindowConstructorOptions
+} from 'electron'
 import { join } from 'path'
 import { existsSync, readFileSync, writeFileSync } from 'fs'
 import { electronApp, optimizer, is } from '@electron-toolkit/utils'
@@ -7,6 +15,7 @@ import httpServer from './services/httpServer'
 import { Activity, ApplicationSetting, AuthData } from '../types'
 
 let mainWindow: BrowserWindow | null = null
+let mainWindowOrig: Array<number> = []
 let authWindow: BrowserWindow | null = null
 
 const AUTH_DATA = 'auth_data.json'
@@ -28,6 +37,46 @@ const readUserData = <T>(name: string) => {
   }
 }
 
+const createSecondaryWindow = (uri: string, width?: number, height?: number) => {
+  const w = width || APP_WINDOW_WIDTH
+  const h = height || APP_WINDOW_HEIGHT
+  const opts: BrowserWindowConstructorOptions = {
+    width: w,
+    height: h,
+    show: false,
+    autoHideMenuBar: true,
+    parent: mainWindow ? mainWindow : undefined,
+    ...(process.platform === 'linux' ? { icon } : {}),
+    webPreferences: {
+      preload: join(__dirname, '../preload/index.js'),
+      sandbox: false,
+      devTools: app.isPackaged ? false : true
+    }
+  }
+  if (mainWindow) {
+    mainWindow.setPosition(mainWindowOrig[0] - APP_WINDOW_WIDTH / 2, mainWindowOrig[1])
+    const pos = mainWindow.getPosition()
+    opts.x = pos[0] + APP_WINDOW_WIDTH + 30
+    opts.y = pos[1]
+  }
+
+  const secondaryWindow = new BrowserWindow(opts)
+
+  secondaryWindow.on('ready-to-show', () => {
+    if (secondaryWindow) secondaryWindow.show()
+  })
+
+  secondaryWindow.on('close', () => {
+    if (mainWindow) mainWindow.setPosition(mainWindowOrig[0], mainWindowOrig[1])
+  })
+
+  if (is.dev && process.env['ELECTRON_RENDERER_URL']) {
+    secondaryWindow.loadURL(`${process.env['ELECTRON_RENDERER_URL']}/${uri}`)
+  } else {
+    secondaryWindow.loadFile(join(__dirname, `../renderer/index.html${uri}`))
+  }
+}
+
 const createWindow = (): void => {
   // Create the browser window.
   mainWindow = new BrowserWindow({
@@ -46,6 +95,8 @@ const createWindow = (): void => {
       devTools: app.isPackaged ? false : true
     }
   })
+
+  mainWindowOrig = mainWindow.getPosition()
 
   mainWindow.on('ready-to-show', () => {
     if (mainWindow) mainWindow.show()
@@ -205,58 +256,12 @@ ipcMain.on('app:authorize', (_event, value) => {
   authWindow.loadURL(value)
 })
 
-ipcMain.handle('app:show-photos', (_event: IpcMainInvokeEvent, id: string): void => {
-  const uri = `#/photos/${id}`
+ipcMain.handle('app:show-photos', (_event: IpcMainInvokeEvent, id: string): void =>
+  createSecondaryWindow(`#/photos/${id}`)
+)
 
-  const photosWindow = new BrowserWindow({
-    width: APP_WINDOW_WIDTH,
-    height: APP_WINDOW_HEIGHT,
-    show: false,
-    autoHideMenuBar: true,
-    parent: mainWindow ? mainWindow : undefined,
-    ...(process.platform === 'linux' ? { icon } : {}),
-    webPreferences: {
-      preload: join(__dirname, '../preload/index.js'),
-      sandbox: false,
-      devTools: app.isPackaged ? false : true
-    }
-  })
+ipcMain.handle('app:show-map', (_event: IpcMainInvokeEvent, id: string): void => createSecondaryWindow(`#/map/${id}`))
 
-  photosWindow.on('ready-to-show', () => {
-    if (photosWindow) photosWindow.show()
-  })
-
-  if (is.dev && process.env['ELECTRON_RENDERER_URL']) {
-    photosWindow.loadURL(`${process.env['ELECTRON_RENDERER_URL']}/${uri}`)
-  } else {
-    photosWindow.loadFile(join(__dirname, `../renderer/index.html${uri}`))
-  }
-})
-
-ipcMain.handle('app:show-map', (_event: IpcMainInvokeEvent, id: string): void => {
-  const uri = `#/map/${id}`
-
-  const mapWindow = new BrowserWindow({
-    width: APP_WINDOW_WIDTH,
-    height: APP_WINDOW_HEIGHT,
-    show: false,
-    autoHideMenuBar: true,
-    parent: mainWindow ? mainWindow : undefined,
-    ...(process.platform === 'linux' ? { icon } : {}),
-    webPreferences: {
-      preload: join(__dirname, '../preload/index.js'),
-      sandbox: false,
-      devTools: app.isPackaged ? false : true
-    }
-  })
-
-  mapWindow.on('ready-to-show', () => {
-    if (mapWindow) mapWindow.show()
-  })
-
-  if (is.dev && process.env['ELECTRON_RENDERER_URL']) {
-    mapWindow.loadURL(`${process.env['ELECTRON_RENDERER_URL']}/${uri}`)
-  } else {
-    mapWindow.loadFile(join(__dirname, `../renderer/index.html${uri}`))
-  }
-})
+ipcMain.handle('app:show-help', (_event: IpcMainInvokeEvent): void =>
+  createSecondaryWindow(`#/help`, APP_WINDOW_WIDTH / 1.5)
+)

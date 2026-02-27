@@ -12,8 +12,9 @@ import { useAuthStore } from '@renderer/stores/auth'
 const init = async (to: RouteLocationNormalized, _from: RouteLocationNormalized, next: NavigationGuardNext) => {
   const appStore = useAppStore()
   const authStore = useAuthStore()
-  if (to.name !== 'settings') {
+  if (to.name !== 'settings' && to.name !== 'help') {
     if (!appStore.isSettingFilled) {
+      appStore.showHelp()
       return next({ name: 'settings' })
     } else if (!authStore.isAuthFilled) {
       authStore.authorize(appStore.settings?.stravaClientId as string, appStore.settings?.stravaRedirectURI as string)
@@ -23,6 +24,11 @@ const init = async (to: RouteLocationNormalized, _from: RouteLocationNormalized,
 }
 
 const routes: Array<RouteRecordRaw> = [
+  {
+    name: 'help',
+    path: '/help',
+    component: () => import('../views/Help.vue')
+  },
   {
     name: 'photos',
     path: '/photos/:id',
