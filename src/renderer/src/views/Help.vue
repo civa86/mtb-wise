@@ -31,7 +31,7 @@
       <template #content>
         <p>
           {{ $t('HELP_STEP3_ITEM1') }}
-          <img class="block mt-2" :src="createImage" />
+          <img class="block mt-2 w-2/3 border border-gray-300 rounded-xl p-1" :src="createImage" />
         </p>
       </template>
     </Card>
@@ -42,7 +42,7 @@
           {{ $t('HELP_STEP3_ITEM2_MIDDLE') }}
           <i class="text-orange-500">{{ $t('STRAVA_CLIENT_SECRET') }}</i>
           {{ $t('HELP_STEP3_ITEM2_SUFFIX') }}
-          <img class="block mt-2" :src="tokenImage" />
+          <img class="block mt-2 w-2/3 border border-gray-300 rounded-xl p-1" :src="tokenImage" />
         </p>
       </template>
     </Card>

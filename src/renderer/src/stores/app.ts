@@ -120,13 +120,16 @@ export const useAppStore = defineStore('app', {
     },
     async fetchData() {
       try {
-        this.isFetching = true
-        this.activities = await window.api.readActivities()
-        const lastActivityDate = getActivitiesMaxDate(this.activities)
-        const after = lastActivityDate ? new Date(lastActivityDate).getTime() / 1000 : undefined
-        await this.fetchActivities(1, after)
-        await window.api.writeActivities(JSON.parse(JSON.stringify(this.activities)))
-        this.isFetching = false
+        const authStore = useAuthStore()
+        if (!authStore.isAuthorizing && authStore.isAuthFilled && this.isSettingFilled) {
+          this.isFetching = true
+          this.activities = await window.api.readActivities()
+          const lastActivityDate = getActivitiesMaxDate(this.activities)
+          const after = lastActivityDate ? new Date(lastActivityDate).getTime() / 1000 : undefined
+          await this.fetchActivities(1, after)
+          await window.api.writeActivities(JSON.parse(JSON.stringify(this.activities)))
+          this.isFetching = false
+        }
       } catch (e) {
         this.error = true
         this.isFetching = false

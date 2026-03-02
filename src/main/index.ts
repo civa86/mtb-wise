@@ -1,6 +1,7 @@
 import {
   app,
   shell,
+  screen,
   BrowserWindow,
   ipcMain,
   IpcMainEvent,
@@ -67,9 +68,16 @@ const createSecondaryWindow = (
     }
   }
   if (mainWindow) {
-    if (sidedWindow) mainWindow.setPosition(mainWindowOrig[0] - APP_WINDOW_WIDTH / 2, mainWindowOrig[1])
+    if (sidedWindow) {
+      const primaryDisplay = screen.getPrimaryDisplay()
+      const { width } = primaryDisplay.workAreaSize
+
+      const totalWindowWidth = APP_WINDOW_WIDTH + 15 + w
+      const offset = Math.round((width - totalWindowWidth) / 2)
+      mainWindow.setPosition(offset, mainWindowOrig[1])
+    }
     const pos = mainWindow.getPosition()
-    opts.x = sidedWindow ? pos[0] + APP_WINDOW_WIDTH + 30 : pos[0] + getRandomInt(15, 400)
+    opts.x = sidedWindow ? pos[0] + APP_WINDOW_WIDTH + 15 : pos[0] + getRandomInt(15, 400)
     opts.y = sidedWindow ? pos[1] : pos[1] + getRandomInt(15, 200)
   }
 

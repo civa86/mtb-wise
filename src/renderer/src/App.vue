@@ -1,7 +1,7 @@
 <template>
   <div v-if="authStore.isAuthorizing" class="h-full p-4 bg-primary-100 dark:bg-primary-700">
     <div class="h-full flex flex-col items-center justify-center">
-      <div class="w-full p-32 text-primary-500 flex flex-col items-center">
+      <div class="w-full px-48 text-primary-500 flex flex-col items-center">
         <Loader class="animate-pulse duration-300" />
         <div class="text-primary-900 text-2xl mt-4 animate-pulse">{{ $t('AUTHORIZING') }}</div>
       </div>

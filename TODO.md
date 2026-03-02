@@ -19,8 +19,11 @@
 [X] ALL search and clean console.log / TODO
 [X] SETTINGS add help trigger button in the strava section to show the help page
 [X] Secondary window check if map and photos need a parent....in that case reset position when secondary is closed is not good?
-[ ] MAIN VIEW fix fetch data only if settings are ok...otherwuise error: replicate commenting the boot action
-[ ] check App name, titles etc...
-[ ] Github Repo
-[ ] Github Action for build mac/win
-[ ] test complete workflow from first settings etc...
+[X] Github Repo
+[X] check App name, titles etc...
+[X] Github Action for build mac/win
+[X] FIX style of authorizing page
+[X] FIX first run
+[X] test complete workflow from first settings etc...
+[X] MAIN VIEW fix fetch data only if settings are ok...otherwuise error: replicate commenting the boot action
+[ ] Documentation of first run with remove attributes for running
