@@ -3,7 +3,7 @@
     <Card class="w-full">
       <template #content>
         <div class="text-2xl mb-4">
-          {{ $t('HELP_WELCOME_TO') }} <b class="text-orange-700 dark:text-orange-600">MTBikeWise</b>
+          {{ $t('HELP_WELCOME_TO') }} <b class="text-orange-700 dark:text-orange-600">MTB Wise</b>
         </div>
         <p class="my-2">{{ $t('HELP_INTRO') }}</p>
         <ul class="mt-4 list-inside list-decimal marker:text-gray-400">
