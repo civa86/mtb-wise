@@ -67,5 +67,5 @@ jobs:
       - name: Build (macOS)
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        if: matrix.os == 'macos-latest'
+        if: matrix.os == 'macos-26'
         run: yarn dist:mac
