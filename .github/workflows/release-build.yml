@@ -1,0 +1,80 @@
+name: Build MTBWise App
+
+on: push
+
+permissions:
+  contents: write
+
+jobs:
+  icons:
+    name: Build Icons
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: yarn
+
+      - name: Enable Corepack
+        run: corepack enable
+
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile
+
+      - name: Build icons
+        run: yarn build:icons
+
+      - name: Upload build icons
+        uses: actions/upload-artifact@v4
+        with:
+          name: build-icons
+          path: build/**
+          if-no-files-found: error
+
+  build:
+    name: Build (${{ matrix.os }})
+    runs-on: ${{ matrix.os }}
+    needs: icons
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [windows-latest, macos-latest]
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: yarn
+
+      - name: Enable Corepack
+        run: corepack enable
+
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile
+
+      - name: Download build icons
+        uses: actions/download-artifact@v4
+        with:
+          name: build-icons
+          path: build
+
+      - name: Build (Windows)
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        if: matrix.os == 'windows-latest'
+        run: yarn dist:win
+
+      - name: Build (macOS)
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        if: matrix.os == 'macos-latest'
+        run: yarn dist:mac

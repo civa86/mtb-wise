@@ -1,11 +1,15 @@
 {
   "name": "mtb-wise",
-  "version": "0.0.0",
-  "description": "Application to monitor your mountain bike usage",
+  "version": "0.1.0",
+  "description": "Desktop App to manage your MTB data synced with Strava API",
   "main": "./out/main/index.js",
   "author": "Dario Civallero",
   "license": "MIT",
   "private": true,
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/civa86/mtb-wise.git"
+  },
   "scripts": {
     "format": "prettier --write .",
     "lint": "eslint --cache .",
@@ -17,10 +21,13 @@
     "build": "yarn typecheck && electron-vite build",
     "postinstall": "electron-builder install-app-deps",
     "build:unpack": "yarn build && electron-builder --dir",
-    "build:win": "yarn build && electron-builder --win",
-    "build:mac": "yarn build && electron-builder --mac",
-    "build:linux": "yarn build && electron-builder --linux",
-    "build:icons": "./icon-make.sh"
+    "build:icons": "./icon-make.sh",
+    "build:win": "yarn build && electron-builder --win --publish=never",
+    "build:mac": "yarn build && electron-builder --mac --publish=never",
+    "build:linux": "yarn build && electron-builder --linux --publish=never",
+    "dist:win": "yarn build && electron-builder --win --publish=always",
+    "dist:mac": "yarn build && electron-builder --mac --publish=always",
+    "dist:linux": "yarn build && electron-builder --linux --publish=always"
   },
   "dependencies": {
     "@electron-toolkit/preload": "^3.0.2",
