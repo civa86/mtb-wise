@@ -1,4 +1,4 @@
-#!/usr/bin/env
+#!/usr/bin/env bash
 
 set -e
 
@@ -14,6 +14,7 @@ magick "$SRC_ICON_PATH" -resize 512x512 "$SCRIPTPATH/build/icon.png"
 
 magick -background transparent "$SRC_ICON_PATH" -define icon:auto-resize=16,24,32,48,64,72,96,128,256 "$SCRIPTPATH/build/icon.ico"
 
+rm -rf $SRC_ICONSET_PATH
 mkdir $SRC_ICONSET_PATH
 
 magick "$SRC_ICON_PATH" -resize 16x16 "$SRC_ICONSET_PATH/icon_16x16.png"

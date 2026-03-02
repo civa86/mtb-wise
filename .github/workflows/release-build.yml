@@ -8,26 +8,17 @@ permissions:
 jobs:
   icons:
     name: Build Icons
-    runs-on: ubuntu-latest
+    runs-on: macos-latest
 
     steps:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Setup Node
-        uses: actions/setup-node@v4
-        with:
-          node-version: 20
-          cache: yarn
-
-      - name: Enable Corepack
-        run: corepack enable
-
-      - name: Install dependencies
-        run: yarn install --frozen-lockfile
+      - name: Install ImageMagick
+        run: brew install imagemagick
 
       - name: Build icons
-        run: yarn build:icons
+        run: ./icon-make.sh
 
       - name: Upload build icons
         uses: actions/upload-artifact@v4
