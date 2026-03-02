@@ -8,7 +8,7 @@ permissions:
 jobs:
   icons:
     name: Build Icons
-    runs-on: macos-latest
+    runs-on: macos-26
 
     steps:
       - name: Checkout
@@ -34,7 +34,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [windows-latest, macos-latest]
+        os: [macos-26]
 
     steps:
       - name: Checkout
