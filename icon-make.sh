@@ -1,4 +1,7 @@
-#!/usr/bin/env bash
+#!/usr/bin/env
+
+set -e
+
 SCRIPTPATH="$(
   cd -- "$(dirname "$0")" >/dev/null 2>&1
   pwd -P
