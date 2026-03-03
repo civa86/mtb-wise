@@ -64,7 +64,7 @@ const createSecondaryWindow = (
     webPreferences: {
       preload: join(__dirname, '../preload/index.js'),
       sandbox: false,
-      devTools: app.isPackaged ? false : true
+      devTools: true
     }
   }
   if (mainWindow) {
@@ -93,9 +93,13 @@ const createSecondaryWindow = (
   })
 
   if (is.dev && process.env['ELECTRON_RENDERER_URL']) {
-    secondaryWindow.loadURL(`${process.env['ELECTRON_RENDERER_URL']}/${uri}`)
+    secondaryWindow.loadURL(`${process.env['ELECTRON_RENDERER_URL']}/#${uri}`)
   } else {
-    secondaryWindow.loadFile(join(__dirname, `../renderer/index.html${uri}`))
+    secondaryWindow.loadFile(join(__dirname, '../renderer/index.html'), { hash: uri })
+  }
+
+  if (is.dev) {
+    secondaryWindow.webContents.openDevTools({ mode: 'detach' })
   }
 }
 
@@ -114,7 +118,7 @@ const createWindow = (): void => {
     webPreferences: {
       preload: join(__dirname, '../preload/index.js'),
       sandbox: false,
-      devTools: app.isPackaged ? false : true
+      devTools: true
     }
   })
 
@@ -137,8 +141,10 @@ const createWindow = (): void => {
     mainWindow.loadFile(join(__dirname, '../renderer/index.html'))
   }
 
-  // Open the DevTools.
-  mainWindow.webContents.openDevTools({ mode: 'detach' })
+  // Keep automatic opening in development only.
+  if (is.dev) {
+    mainWindow.webContents.openDevTools({ mode: 'detach' })
+  }
 }
 
 // This method will be called when Electron has finished
@@ -279,14 +285,14 @@ ipcMain.on('app:authorize', (_event, value) => {
 })
 
 ipcMain.handle('app:show-photos', (_event: IpcMainInvokeEvent, id: string): void =>
-  createSecondaryWindow(`#/photos/${id}`)
+  createSecondaryWindow(`/photos/${id}`)
 )
 
-ipcMain.handle('app:show-map', (_event: IpcMainInvokeEvent, id: string): void => createSecondaryWindow(`#/map/${id}`))
+ipcMain.handle('app:show-map', (_event: IpcMainInvokeEvent, id: string): void => createSecondaryWindow(`/map/${id}`))
 
 ipcMain.handle('app:show-help', (_event: IpcMainInvokeEvent): void => {
   if (!isHelpOpened) {
-    createSecondaryWindow(`#/help`, APP_WINDOW_WIDTH / 1.5, APP_WINDOW_HEIGHT, true, () => {
+    createSecondaryWindow(`/help`, APP_WINDOW_WIDTH / 1.5, APP_WINDOW_HEIGHT, true, () => {
       isHelpOpened = false
     })
     isHelpOpened = true
