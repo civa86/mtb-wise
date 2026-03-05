@@ -1,6 +1,6 @@
 {
   "name": "mtb-wise",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "Desktop App to manage your MTB data synced with Strava API",
   "main": "./out/main/index.js",
   "author": "Dario Civallero",
